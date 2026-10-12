@@ -261,6 +261,38 @@
       .finish-stats { display: flex; justify-content: center; gap: 34px; margin: 22px 0 25px; }
       .finish-stats b { display: block; color: #159e85; font-size: 31px; }
       .finish-stats span { color: #708891; font-size: 13px; }
+      .planet-panel { width: 100%; text-align: center; }
+      .planet-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+      .planet-head h2 { margin: 3px 0 0; font-size: clamp(21px, 3vw, 29px); }
+      .planet-round { flex: 0 0 auto; padding: 8px 11px; color: #62528d; border-radius: 99px; background: #eee8ff; font-size: 13px; font-weight: 850; }
+      .planet-instructions { margin: 10px 0 15px; color: #5d7982; font-size: 14px; }
+      .planet-field { position: relative; width: 100%; height: min(390px, 48vh); min-height: 310px; overflow: hidden; isolation: isolate; border: 1px solid #d8e4f2; border-radius: 20px; background: radial-gradient(ellipse at 50% 110%, #364b84 0, #202d58 58%, #182548 100%); touch-action: manipulation; }
+      .planet-field::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .75; background: radial-gradient(circle at 13% 17%, #fff 0 1px, transparent 2px), radial-gradient(circle at 82% 28%, #fff 0 1px, transparent 2px), radial-gradient(circle at 64% 72%, #fff 0 1px, transparent 2px), radial-gradient(circle at 28% 62%, #fff 0 1px, transparent 2px), radial-gradient(circle at 92% 80%, #fff 0 1px, transparent 2px), radial-gradient(circle at 48% 30%, #fff 0 1px, transparent 2px); background-size: 130px 110px; }
+      .planet-field::after { content: ""; position: absolute; right: 0; bottom: 9px; left: 0; height: 2px; border-top: 2px dashed rgba(255,255,255,.28); }
+      .falling-planet { position: absolute; top: 0; left: var(--planet-left); z-index: 1; display: grid; width: min(88px, 23vw); height: 80px; align-content: center; justify-items: center; gap: 3px; padding: 2px 4px; transform: translate(-50%, -90px); border: 0; border-radius: 16px; background: transparent; color: white; animation: planetDrop var(--fall-time) linear var(--fall-delay) forwards; touch-action: manipulation; }
+      .falling-planet:focus-visible { outline-color: #ffd36b; }
+      .planet-globe { position: relative; display: block; width: 42px; height: 42px; border-radius: 50%; box-shadow: inset -7px -6px 9px rgba(21,34,64,.38), 0 3px 10px rgba(0,0,0,.22); }
+      .planet-mercury .planet-globe { background: radial-gradient(circle at 32% 27%, #e4e3df, #9699a5 66%, #666a7a); }
+      .planet-venus .planet-globe { background: radial-gradient(circle at 30% 26%, #fff2b4, #dfad5d 68%, #ac773c); }
+      .planet-earth .planet-globe { background: radial-gradient(circle at 36% 28%, #b9f0ff, #448fe5 48%, #2464a6); }
+      .planet-earth .planet-globe::after { content: ""; position: absolute; top: 10px; left: 10px; width: 17px; height: 13px; border-radius: 60% 35% 55% 40%; background: #70c68d; transform: rotate(-22deg); }
+      .planet-mars .planet-globe { background: radial-gradient(circle at 32% 27%, #ffd09a, #df6e4c 67%, #a94945); }
+      .planet-jupiter .planet-globe { background: repeating-linear-gradient(0deg, #d9b993 0 5px, #ae795d 6px 9px, #f0d8b5 10px 14px); }
+      .planet-saturn .planet-globe { background: radial-gradient(circle at 32% 27%, #fff0be, #caa86a 70%, #8f734a); }
+      .planet-saturn .planet-globe::after { content: ""; position: absolute; top: 14px; left: -8px; width: 58px; height: 15px; border: 4px solid rgba(245,221,164,.88); border-radius: 50%; transform: rotate(-20deg); }
+      .planet-uranus .planet-globe { background: radial-gradient(circle at 32% 27%, #d8ffff, #71c6d4 68%, #438d9e); }
+      .planet-neptune .planet-globe { background: radial-gradient(circle at 32% 27%, #bdcaff, #4b70db 68%, #3447a3); }
+      .planet-name { padding: 2px 6px; border-radius: 99px; background: rgba(12,23,55,.78); font-size: 12px; font-weight: 850; white-space: nowrap; }
+      .falling-planet.caught { animation-play-state: paused; opacity: .25; }
+      .planet-pop { color: #ffe07a; font-size: 37px; }
+      @keyframes planetDrop { to { transform: translate(-50%, var(--fall-distance)); } }
+      .planet-meta { display: flex; justify-content: space-between; gap: 10px; margin: 12px 2px 0; color: #5c7680; font-size: 14px; font-weight: 750; text-align: left; }
+      .planet-meta b { color: #159e85; font-size: 18px; }
+      .planet-result { padding: 18px 5px 7px; }
+      .planet-result-icon { margin: 4px 0; font-size: 64px; }
+      .planet-result h2 { margin: 0 0 8px; font-size: 28px; }
+      .planet-result p { color: #56737d; line-height: 1.65; }
+      .planet-result-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px; }
       .sparkles { position: fixed; inset: 0; z-index: 8; pointer-events: none; overflow: hidden; }
       .sparkle { position: absolute; top: -40px; font-size: 26px; animation: fall 2.8s linear forwards; }
       @keyframes fall { to { top: 105vh; transform: rotate(300deg); opacity: .15; } }
@@ -345,8 +377,23 @@
               <h2>第一轮完成啦！</h2>
               <p>你认真读完了 <span id="finishCount"></span> 个词。小伙伴们都为你鼓掌！</p>
               <div class="finish-stats"><div><b id="finishWordCount"></b><span>认识词语</span></div><div><b id="finishPartnerCount"></b><span>本轮伙伴</span></div><div><b id="finishStarCount"></b><span>认字星星</span></div></div>
-              <button class="primary" id="restartRound" type="button">再来一轮</button>
+              <p>奖励时间到啦！来接住掉下来的八大行星吧。</p>
+              <button class="primary" id="startPlanetGame" type="button">🪐 开始捡行星</button>
             </div>
+            <section class="planet-panel hidden" id="planetPanel" aria-label="八大行星收集游戏">
+              <div class="planet-game" id="planetGame">
+                <div class="planet-head"><div><p class="eyebrow">认字奖励时间</p><h2>接住掉下来的行星！</h2></div><span class="planet-round" id="planetRoundLabel">第 1 / 3 轮</span></div>
+                <p class="planet-instructions">点一点行星就能捡到它；每轮都有八大行星。</p>
+                <div class="planet-field" id="planetField" aria-label="行星掉落区"></div>
+                <div class="planet-meta"><span>已经捡到 <b id="planetCaught">0</b> 颗</span><span id="planetStatus" role="status">准备好了吗？</span></div>
+              </div>
+              <div class="planet-result hidden" id="planetResult">
+                <div class="planet-result-icon" aria-hidden="true">🪐</div>
+                <h2>三轮行星雨结束啦！</h2>
+                <p id="planetResultText"></p>
+                <div class="planet-result-actions"><button class="primary" id="playPlanetsAgain" type="button">再捡三轮</button><button class="listen" id="restartRound" type="button">再认一轮</button></div>
+              </div>
+            </section>
           </section>
           <p class="success-note" id="successNote" role="status"></p>
         </article>
@@ -408,7 +455,6 @@
         { id: "mouth", word: "合不上嘴", help: "嘴巴张大了关不起来，常表示非常吃惊。", abstract: true },
         { id: "whisper", word: "咬了咬耳朵", help: "把嘴靠近对方耳朵悄悄说话，不是真的咬耳朵。", abstract: true },
         { id: "dive", word: "扎进水中", help: "一下子把身体或头钻进水里。", abstract: false },
-        { id: "effort", word: "使劲", help: "用很多力气。", abstract: false },
         { id: "petals", word: "三瓣花", help: "有三片花瓣的花。", abstract: false },
         { id: "lack", word: "缺少", help: "需要的东西不够，还少一些。", abstract: true },
         { id: "clay", word: "捏黏土", help: "用手指把软软的黏土捏成想要的形状。", abstract: false },
@@ -422,16 +468,19 @@
         { id: "traffic", word: "堵车", help: "路上车太多，车开得很慢，甚至动不了。", abstract: false },
         { id: "street", word: "上街", help: "到街上去买东西、办事或玩。", abstract: false },
         { id: "street-side", word: "街头", help: "街道上或街边的地方。", abstract: false },
-        { id: "candles", word: "插了三支蜡烛", help: "把三根蜡烛插在蛋糕或别的东西上。", abstract: false },
         { id: "wander", word: "东游游，西逛逛", help: "这里走走，那里看看，随意到处逛。", abstract: true },
-        { id: "fell", word: "跌了一跤", help: "走路或跑步时摔倒了一次。", abstract: false },
-        { id: "puddle", word: "水洼", help: "地面凹下去的地方积着一小滩水。", abstract: false },
-        { id: "longan", word: "桂圆", help: "一种圆圆甜甜的水果；新鲜时也叫龙眼。", abstract: false },
-        { id: "doll", word: "娃娃", help: "小宝宝、小孩子；也可以指玩具娃娃。", abstract: false },
+        { id: "puddle-longan-doll", word: "水洼，桂圆，娃娃", help: "水洼是地面上一小滩水；桂圆是一种圆圆甜甜的水果，也叫龙眼；娃娃可以指小宝宝，也可以指玩具娃娃。", abstract: false },
         { id: "mud-pit", word: "泥坑", help: "有泥和水的坑，踩进去会弄脏，也可能滑倒。", abstract: false },
         { id: "hook", word: "钩住了树枝", help: "带钩或弯弯的东西挂在树枝上，动不了了。", abstract: false },
-        { id: "wade", word: "淌着水过河", help: "“淌”是水慢慢流。如果想说人在水里走过去，常写作“蹚着水过河”。", abstract: true },
         { id: "sprout", word: "从地下拱出来", help: "从土里用力向上顶，钻出来，像小草发芽一样。", abstract: false }
+      ];
+
+      const REMOVED_WORDS = new Set(["淌着水过河", "跌了一跤", "插了三支蜡烛", "使劲"]);
+      const PLANETS = [
+        { id: "mercury", name: "水星" }, { id: "venus", name: "金星" },
+        { id: "earth", name: "地球" }, { id: "mars", name: "火星" },
+        { id: "jupiter", name: "木星" }, { id: "saturn", name: "土星" },
+        { id: "uranus", name: "天王星" }, { id: "neptune", name: "海王星" }
       ];
 
       const companions = [
@@ -448,10 +497,33 @@
       const clone = (value) => JSON.parse(JSON.stringify(value));
       const escapeHtml = (value) => String(value).replace(/[&<>'\"]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", "\"": "&quot;" })[char]);
 
+      function migrateVocabulary(items) {
+        let migrated = items.filter((item) => !REMOVED_WORDS.has(item.word));
+        const combined = migrated.find((item) => item.word === "水洼，桂圆，娃娃");
+        const groupWords = new Set(["水洼", "桂圆", "娃娃"]);
+        const parts = migrated.filter((item) => groupWords.has(item.word));
+        if (combined) migrated = migrated.filter((item) => !groupWords.has(item.word));
+        else if (parts.length === 3) {
+          const firstIndex = migrated.findIndex((item) => groupWords.has(item.word));
+          migrated = migrated.filter((item) => !groupWords.has(item.word));
+          migrated.splice(Math.min(firstIndex, migrated.length), 0, clone(initialVocabulary.find((item) => item.id === "puddle-longan-doll")));
+        }
+        return migrated;
+      }
+
       function loadSaved() {
         try {
           const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-          if (Array.isArray(saved?.vocabulary) && saved.vocabulary.length) return saved;
+          if (Array.isArray(saved?.vocabulary) && saved.vocabulary.length) {
+            const vocabulary = migrateVocabulary(saved.vocabulary);
+            if (vocabulary.length) {
+              const migrated = { ...saved, vocabulary };
+              if (JSON.stringify(migrated) !== JSON.stringify(saved)) {
+                try { localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated)); } catch (error) { /* Keep the migrated list usable for this session. */ }
+              }
+              return migrated;
+            }
+          }
         } catch (error) { /* Use the first-round list when local storage is unavailable. */ }
         return { vocabulary: clone(initialVocabulary), includeMonkey: false };
       }
@@ -464,6 +536,10 @@
       let currentConfirmed = false;
       let partners = [];
       let editingIndex = null;
+      let planetRound = 1;
+      let planetCaught = 0;
+      let planetResolved = 0;
+      let planetAdvanceTimer = null;
 
       function shuffle(items) {
         const copy = [...items];
@@ -555,11 +631,83 @@
       }
 
       function startNewRound() {
+        if (planetAdvanceTimer) window.clearTimeout(planetAdvanceTimer);
+        planetAdvanceTimer = null;
         index = 0;
         recognized = 0;
         currentConfirmed = false;
+        $("planetPanel").classList.add("hidden");
+        $("finishPanel").classList.add("hidden");
+        $("learningPanel").classList.remove("hidden");
         choosePartners();
         renderCurrent();
+      }
+
+      function startPlanetGame() {
+        if (planetAdvanceTimer) window.clearTimeout(planetAdvanceTimer);
+        planetAdvanceTimer = null;
+        planetRound = 1;
+        planetCaught = 0;
+        $("finishPanel").classList.add("hidden");
+        $("planetPanel").classList.remove("hidden");
+        $("planetGame").classList.remove("hidden");
+        $("planetResult").classList.add("hidden");
+        $("planetCaught").textContent = "0";
+        beginPlanetRound();
+      }
+
+      function beginPlanetRound() {
+        $("planetRoundLabel").textContent = `第 ${planetRound} / 3 轮`;
+        $("planetStatus").textContent = "快来接住行星！";
+        const field = $("planetField");
+        field.innerHTML = "";
+        planetResolved = 0;
+        const distance = field.clientHeight + 100;
+        shuffle(PLANETS).forEach((planet, itemIndex) => {
+          const button = document.createElement("button");
+          const lane = itemIndex % 4;
+          const row = Math.floor(itemIndex / 4);
+          const delay = row * 1.75 + lane * 0.16;
+          button.className = `falling-planet planet-${planet.id}`;
+          button.type = "button";
+          button.setAttribute("aria-label", `捡到${planet.name}`);
+          button.style.setProperty("--planet-left", `${12.5 + lane * 25}%`);
+          button.style.setProperty("--fall-distance", `${distance}px`);
+          button.style.setProperty("--fall-time", "5.4s");
+          button.style.setProperty("--fall-delay", `${delay}s`);
+          button.innerHTML = `<span class="planet-globe" aria-hidden="true"></span><span class="planet-name">${planet.name}</span>`;
+          button.addEventListener("click", () => resolvePlanet(button, true));
+          button.addEventListener("animationend", () => resolvePlanet(button, false), { once: true });
+          field.appendChild(button);
+        });
+      }
+
+      function resolvePlanet(button, caught) {
+        if (button.dataset.resolved === "true") return;
+        button.dataset.resolved = "true";
+        button.disabled = true;
+        if (caught) {
+          planetCaught += 1;
+          $("planetCaught").textContent = String(planetCaught);
+          button.classList.add("caught");
+          button.innerHTML = '<span class="planet-pop" aria-hidden="true">✨</span>';
+          window.setTimeout(() => button.remove(), 300);
+        } else button.remove();
+        planetResolved += 1;
+        if (planetResolved !== PLANETS.length || planetAdvanceTimer) return;
+        $("planetStatus").textContent = `第 ${planetRound} 轮完成！`;
+        planetAdvanceTimer = window.setTimeout(() => {
+          planetAdvanceTimer = null;
+          planetRound += 1;
+          if (planetRound <= 3) beginPlanetRound();
+          else finishPlanetGame();
+        }, 900);
+      }
+
+      function finishPlanetGame() {
+        $("planetGame").classList.add("hidden");
+        $("planetResult").classList.remove("hidden");
+        $("planetResultText").textContent = `你三轮一共捡到了 ${planetCaught} 颗行星，八大行星都来和你玩啦！`;
       }
 
       function showHelp() {
@@ -650,6 +798,8 @@
 
       $("confirmWord").addEventListener("click", confirmWord);
       $("nextWord").addEventListener("click", nextWord);
+      $("startPlanetGame").addEventListener("click", startPlanetGame);
+      $("playPlanetsAgain").addEventListener("click", startPlanetGame);
       $("restartRound").addEventListener("click", startNewRound);
       $("showHelp").addEventListener("click", showHelp);
       $("speakWord").addEventListener("click", speakCurrent);
