@@ -1,5 +1,5 @@
-const CACHE_NAME = "math-buzzer-v7";
-const APP_FILES = ["./", "./index.html", "./friends-v2.png", "./manifest.webmanifest"];
+const CACHE_NAME = "math-buzzer-v8";
+const APP_FILES = ["./", "./index.html", "./friends-v2.png", "./friends-wenbao.png", "./manifest.webmanifest"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_FILES)));
