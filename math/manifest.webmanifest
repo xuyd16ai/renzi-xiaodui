@@ -1,0 +1,19 @@
+{
+  "name": "口算抢答小队",
+  "short_name": "口算抢答",
+  "description": "每天十道口算题，完成挑战抢红包。",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#edf7fa",
+  "theme_color": "#169c87",
+  "icons": [
+    {
+      "src": "friends-v2.png",
+      "sizes": "1254x1254",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

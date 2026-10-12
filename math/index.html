@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>口算抢答小队</title>
+  <meta name="description" content="每次都是全新的十道口算题，和马东亮、小猴、王小北一起抢答，完成挑战抢红包！">
+  <meta name="theme-color" content="#169c87">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="口算抢答">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="friends-v2.png">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%2319a78e'/%3E%3Ctext x='16' y='24' text-anchor='middle' font-size='27' fill='white'%3E+%3C/text%3E%3C/svg%3E">
+  <style>
+    :root{font-family:ui-rounded,"PingFang SC","Microsoft YaHei",sans-serif;color:#213f4b;background:#edf7fa;font-size:16px}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 15% 20%,#d6f2ed,transparent 48%),radial-gradient(ellipse at 90% 60%,#dceafb,transparent 50%),#f1f8fa}button,input{font:inherit}button{cursor:pointer;touch-action:manipulation}button:focus-visible,input:focus-visible{outline:4px solid #f4b747;outline-offset:4px}button:disabled{cursor:default;opacity:.6}
+    header{max-width:1120px;margin:auto;padding:28px 30px;display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{display:flex;align-items:center;gap:12px;font-weight:900;font-size:22px}.logo{background:#169c87;color:#fff;border-radius:14px;width:44px;height:44px;display:grid;place-items:center;font-size:30px;box-shadow:0 4px 0 #108574}.date{font-size:14px;color:#54717d}
+    main{max-width:1060px;margin:12px auto 0;padding:0 24px 32px}.topline{display:flex;align-items:end;justify-content:space-between;margin:12px 0 22px}h1{font-size:clamp(26px,4vw,38px);margin:0 0 8px;letter-spacing:1px}p{line-height:1.6}.subtitle{color:#58737c;margin:0}.daily{background:#fff;border:1px solid #d9e7eb;border-radius:30px;padding:10px 17px;font-weight:700;white-space:nowrap}
+    .layout{display:grid;grid-template-columns:1fr 290px;gap:24px}.board{background:#fff;border:2px solid #d9e7eb;border-radius:28px;padding:28px;box-shadow:0 9px 0 #dfecef}.progressline{display:flex;justify-content:space-between;align-items:center;font-weight:700}.chip{font-size:14px;background:#e4f5ef;color:#168d76;padding:8px 12px;border-radius:10px}.dots{display:flex;gap:7px;margin:20px 0 28px}.dot{height:8px;flex:1;background:#e8eff1;border-radius:10px}.dot.done{background:#19ab8e}.dot.now{background:#f5be51}
+    .questionarea{text-align:center;background:#f5f9fa;border:1px solid #e5eef0;border-radius:22px;padding:24px 12px 22px}.eyebrow{font-size:14px;color:#718891;margin:0}.equation{font-size:clamp(38px,6vw,64px);font-weight:900;letter-spacing:2px;margin:19px 0;color:#24434d}.unknown{color:#13a88a}.timer{font-size:14px;color:#58737c;min-height:22px}
+    .answerline{display:flex;gap:12px;margin-top:22px}input{width:0;flex:1;min-height:60px;border:2px solid #dce8eb;border-radius:15px;text-align:center;font-size:26px;font-weight:700;color:#24434d;background:#fff}input::placeholder{font-size:17px;font-weight:400;color:#879ba1}.primary{border:0;background:#159e85;color:#fff;border-radius:15px;min-height:58px;padding:12px 26px;font-weight:800;font-size:18px;box-shadow:0 5px 0 #087964}.primary:active{transform:translateY(3px);box-shadow:0 2px 0 #087964}
+    .keypad{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:16px}.keypad button{background:#f2f7f8;border:1px solid #dfebee;color:#3f5d66;border-radius:10px;padding:12px 0;font-size:20px;font-weight:700}.feedback{min-height:48px;margin:18px 0 0;font-size:16px;text-align:center;color:#58737c}.feedback:empty{display:none}.feedback.correct{color:#078169;font-weight:800}
+    .side{display:flex;flex-direction:column;gap:18px}.friends{background:#e3efff;border:2px solid #d3e2f5;border-radius:26px;padding:20px;text-align:center;overflow:hidden}.friends h2{font-size:18px;margin:0 0 6px}.friends img{width:100%;height:160px;object-fit:cover;border-radius:18px;margin-top:8px}.names{display:flex;justify-content:space-around;font-weight:800;margin-top:8px}.bubble{background:#fff;border-radius:16px;padding:14px 12px;font-size:15px;line-height:1.6;margin-top:18px;min-height:78px}.wave{animation:wave .4s alternate 4;display:inline-block}@keyframes wave{to{transform:rotate(25deg) scale(1.2)}}
+    .reward{background:#fff3d4;border:2px solid #f7e4af;border-radius:24px;padding:20px;display:flex;align-items:center;gap:16px}.rewardicon{font-size:39px}.reward strong{font-size:17px}.reward p{margin:5px 0 0;font-size:14px;color:#8a7442}.rules{font-size:14px;text-align:center;color:#6f8790;margin:24px 0 0}.quiet{border:0;background:transparent;color:#55727c;text-decoration:underline;font-size:14px;padding:10px}
+    .finish{text-align:center;padding:24px 0}.finish h2{font-size:32px}.bigstar{font-size:76px}.stats{display:flex;justify-content:center;gap:38px;margin:24px 0}.stats b{font-size:30px;display:block;color:#159e85}.stats span{font-size:14px;color:#617c85}
+    .rain{position:fixed;inset:0;background:#123d4ded;z-index:10;overflow:hidden;color:#fff;text-align:center;padding:36px 16px}.rain h2{font-size:32px;margin:10px}.rain .primary{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:12}.packet{position:absolute;top:-120px;width:82px;height:104px;background:#ef5546;border:3px solid #ffbe60;border-radius:14px;color:#ffe09a;font-size:35px;box-shadow:0 6px 0 #bd3a33;animation:fall linear forwards;z-index:11;touch-action:manipulation;-webkit-tap-highlight-color:transparent}.packet:after{content:"福";border:1px solid #ffd58b;padding:4px;border-radius:50%;font-size:29px}@keyframes fall{to{top:110vh;transform:rotate(22deg)}}.hidden{display:none!important}
+    @media(max-width:760px){header{padding:20px}.date{display:none}main{padding:0 16px 24px;margin-top:0}.topline{align-items:center;gap:8px}.daily{font-size:13px;padding:8px 10px}.subtitle{font-size:14px}.layout{grid-template-columns:1fr;gap:18px}.board{padding:20px}.side{display:grid;grid-template-columns:1fr}.friends{padding:14px;display:grid;grid-template-columns:110px 1fr;align-items:center;column-gap:12px}.friends h2{grid-column:1/-1;text-align:left;margin-bottom:10px}.friends img{height:85px;margin:0;grid-column:1}.names{font-size:13px;grid-column:1;gap:8px}.bubble{grid-column:2;grid-row:2/4;margin:0;min-height:74px}.reward{padding:14px 20px}.answerline{gap:8px}.primary{padding:12px 18px}.equation{margin:14px 0}.questionarea{padding:20px 8px}.keypad{gap:6px}.rules{line-height:1.8}}
+    @media(prefers-reduced-motion:reduce){.wave{animation:none}}
+  </style>
+</head>
+<body>
+  <header><div class="brand"><span class="logo">＋</span>口算抢答小队</div><span class="date" id="date"></span></header>
+  <main>
+    <div class="topline"><div><h1>今天，也要闪闪发光！</h1></div><div class="daily">☀️ 每次 10 题</div></div>
+    <div class="layout">
+      <section class="board" aria-label="口算挑战">
+        <div id="play">
+          <div class="progressline"><span id="progress"></span></div><div class="dots" id="dots"></div>
+          <div class="questionarea"><p class="eyebrow">小小脑袋，大大能量</p><div class="equation" id="equation"></div></div>
+          <form id="form" class="answerline"><input id="answer" aria-label="你的答案" inputmode="numeric" autocomplete="off" placeholder="输入你的答案" maxlength="3"><button class="primary" id="submit">我来抢答！</button></form>
+          <div class="keypad" id="keypad"></div><p class="feedback" id="feedback" role="status" aria-live="polite"></p><button class="primary hidden" id="next" style="width:100%">下一题</button>
+        </div>
+        <div id="finish" class="finish hidden"></div>
+      </section>
+      <aside class="side">
+        <section class="friends"><h2>你的抢答搭子</h2><img id="art" src="friends-v2.png" alt="开心的马东亮、小猴和王小北"><div class="names"><span>马东亮</span><span>小猴</span><span>王小北</span></div><div class="bubble" id="bubble" aria-live="polite">准备好啦！<br>看看这次谁的小脑袋转得快～</div></section>
+        <section class="reward"><span class="rewardicon">🧧</span><div><strong>答完十题，红包雨！</strong><p>点一点红包，收集幸运星星</p></div></section>
+      </aside>
+    </div>
+  </main>
+  <div class="rain hidden" id="rain" role="dialog" aria-modal="true" aria-label="红包雨"><h2 id="raintitle">红包雨来啦！</h2><p id="rainstatus" aria-live="polite">点红包，接住小星星 ⭐</p><button class="primary" id="rainend">收好星星</button></div>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const today = new Date();
+    $("date").textContent = today.toLocaleDateString("zh-CN", {month:"long", day:"numeric", weekday:"long"});
+    function rand(min, max) { const span=max-min+1; if(globalThis.crypto?.getRandomValues){const value=new Uint32Array(1);globalThis.crypto.getRandomValues(value);return min+(value[0]%span)} return min+Math.floor(Math.random()*span) }
+    function generateQuestions(){
+      const qs=[];
+      const add=(a,op,b,type)=>qs.push({a,b,op,type,result:op==="+"?a+b:op==="−"?a-b:op==="×"?a*b:a/b});
+      let a=rand(5,9); add(a,"+",rand(Math.max(5,11-a),Math.min(9,20-a)),"20 以内加法");
+      a=rand(2,7)*10; add(a,"+",rand(11,Math.min(29,99-a)),"两位数加法");
+      a=rand(11,18); add(a,"−",rand(Math.max(2,a-9),Math.min(9,a-1)),"20 以内减法");
+      const tensA=rand(4,9),onesA=rand(0,9),tensB=rand(1,tensA-1),onesB=rand(0,onesA); add(tensA*10+onesA,"−",tensB*10+onesB,"两位数减法 · 不借位");
+      add(rand(2,5),"×",rand(2,5),"基础乘法"); add(6,"×",rand(7,9),"进阶乘法");
+      const hardPairs=[[7,7],[7,8],[8,8],[10,11],[11,11],[11,12],[12,12],[12,13],[13,13],[13,14],[14,14],[14,15],[15,15]],hard=hardPairs[rand(0,hardPairs.length-1)]; add(hard[0],"×",hard[1],"挑战乘法");
+      let divisor=rand(2,5),quotient=rand(3,6); while(divisor*quotient<12){divisor=rand(2,5);quotient=rand(3,6)} add(divisor*quotient,"÷",divisor,"小数整除");
+      divisor=rand(7,9); quotient=rand(7,9); add(divisor*quotient,"÷",divisor,"大数整除");
+      if(rand(1,100)<=75){
+        do{divisor=rand(10,22);quotient=rand(6,15)}while(divisor*quotient<=100);
+      }else{
+        divisor=rand(2,15);quotient=rand(2,15);
+      }
+      add(divisor*quotient,"÷",divisor,"随机整除");
+      return qs;
+    }
+    function generateFreshQuestions(){
+      let previous="";
+      try{previous=localStorage.getItem("last-math-set")||""}catch(error){}
+      let next=generateQuestions(),signature=JSON.stringify(next.map(q=>[q.a,q.op,q.b]));
+      while(signature===previous){next=generateQuestions();signature=JSON.stringify(next.map(q=>[q.a,q.op,q.b]))}
+      try{localStorage.setItem("last-math-set",signature)}catch(error){}
+      return next;
+    }
+    let questions=generateFreshQuestions(),index=0,correct=0,mistakes=0,solved=false,timer=null,stars=0,rainInterval=null,rainTimeout=null,rainStarted=false;
+    function stopTimer(){clearTimeout(timer)}
+    function render(){
+      stopTimer(); solved=false; mistakes=0; const q=questions[index];
+      $("progress").textContent=`第 ${index+1} / 10 题`;
+      $("dots").innerHTML=questions.map((_,i)=>`<span class="dot ${i<index?"done":i===index?"now":""}"></span>`).join("");
+      $("equation").innerHTML=`${q.a} ${q.op} ${q.b} = <span class="unknown">?</span>`;
+      $("answer").value=""; $("answer").disabled=false; $("submit").disabled=false; $("next").classList.add("hidden");
+      $("feedback").className="feedback"; $("feedback").textContent=""; $("bubble").textContent="认真思考中……你也来试试看！";
+      timer=setTimeout(()=>{const friends=["马东亮","小猴","王小北"],name=friends[rand(0,friends.length-1)];$("bubble").innerHTML=`<span class="wave">✋</span> ${name}举手了！<br>“我想出来了，你想出来了吗？”`},20000);
+    }
+    function submitAnswer(){
+      if(solved||index>=10)return false; const value=$("answer").value.trim();
+      if(!/^\d{1,3}$/.test(value)){ $("feedback").textContent="先写一个数字答案吧。"; return false }
+      if(Number(value)!==questions[index].result){mistakes++;$("feedback").className="feedback";$("feedback").textContent="还差一点点，再算一遍吧！";$("answer").select();return false}
+      solved=true;stopTimer();if(mistakes===0)correct++;$("answer").disabled=true;$("submit").disabled=true;$("feedback").className="feedback correct";$("feedback").textContent="⭐ 答对啦！你的小脑袋真灵光！";$("bubble").textContent="马东亮、小猴和王小北：原来如此！给你鼓鼓掌！👏";$("next").textContent=index===9?"完成挑战，抢红包！ 🧧":"下一题";$("next").classList.remove("hidden");$("next").focus();return true;
+    }
+    function complete(){
+      stopTimer();$("play").classList.add("hidden");$("finish").classList.remove("hidden");
+      $("finish").innerHTML=`<div class="bigstar">🏆</div><h2>十题挑战，完成！</h2><p>你坚持思考的样子，真的很棒！</p><div class="stats"><div><b>10</b><span>完成题目</span></div><div><b>${correct}</b><span>一次答对</span></div><div><b id="starcount">${stars}</b><span>幸运星星</span></div></div><button class="primary" id="rewardbtn">🧧 开始抢红包</button><p>想继续挑战，还可以换一套全新的题！</p><button class="quiet" id="again">换一套新题</button>`;
+      $("rewardbtn").onclick=startRain;$("again").onclick=startNewSet;$("bubble").textContent="小队全员为你欢呼！还要再来一套吗？🎉";
+    }
+    function startNewSet(){stopTimer();questions=generateFreshQuestions();index=0;correct=0;stars=0;rainStarted=false;$("finish").classList.add("hidden");$("play").classList.remove("hidden");render()}
+    function packet(){const p=document.createElement("button");p.className="packet";p.setAttribute("aria-label","抢红包，获得星星");p.style.left=`${3+Math.random()*76}%`;p.style.animationDuration="6.5s";let collected=false;const collect=event=>{if(collected)return;collected=true;event?.preventDefault();stars+=rand(1,3);$("rainstatus").textContent=`已经抢到 ${stars} 颗幸运星星 ⭐`;p.remove()};p.onpointerdown=collect;p.onclick=collect;p.onanimationend=()=>p.remove();$("rain").appendChild(p)}
+    function startRain(){if(rainStarted)return;rainStarted=true;$("rain").classList.remove("hidden");$("rainend").focus();packet();rainInterval=setInterval(packet,550);rainTimeout=setTimeout(()=>{clearInterval(rainInterval);$("raintitle").textContent="满满好运，送给你！";$("rainstatus").textContent=`你收集了 ${stars} 颗幸运星星 ⭐`},15000)}
+    function endRain(){clearInterval(rainInterval);clearTimeout(rainTimeout);$("rain").classList.add("hidden");document.querySelectorAll(".packet").forEach(p=>p.remove());$("starcount").textContent=stars;$("rewardbtn").textContent=`⭐ 已收好 ${stars} 颗星星`;$("rewardbtn").disabled=true;$("again").focus()}
+    $("rainend").onclick=endRain;$("form").onsubmit=e=>{e.preventDefault();submitAnswer()};$("answer").oninput=()=>{$("answer").value=$("answer").value.replace(/\D/g,"").slice(0,3)};$("next").onclick=()=>{index++;index===10?complete():render()};
+    ["1","2","3","4","5","6","7","8","9","0","⌫","清空"].forEach(key=>{const button=document.createElement("button");button.type="button";button.textContent=key;button.setAttribute("aria-label",key==="⌫"?"删除一位":key);button.onclick=()=>{if(solved)return;$("answer").value=key==="清空"?"":key==="⌫"?$("answer").value.slice(0,-1):($("answer").value+key).slice(0,3)};$("keypad").appendChild(button)});
+    document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("rain").classList.contains("hidden"))endRain()});render();
+    if(document.modelContext?.registerTool){try{document.modelContext.registerTool({name:"read_math_challenge",description:"Read the current arithmetic question and completion progress.",inputSchema:{type:"object",properties:{},additionalProperties:false},annotations:{readOnlyHint:true,untrustedContentHint:false},execute:()=>({question:index<10?`${questions[index].a} ${questions[index].op} ${questions[index].b}`:null,number:Math.min(index+1,10),solved,completed:index===10})})}catch(error){}}
+  </script>
+  <script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}))}</script>
+</body>
+</html>
