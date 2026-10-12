@@ -1,0 +1,19 @@
+{
+  "name": "认字小队",
+  "short_name": "认字小队",
+  "description": "和两位小伙伴一起认识词语。",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#eef8fb",
+  "theme_color": "#159e85",
+  "icons": [
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
