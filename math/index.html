@@ -56,12 +56,13 @@
     function generateQuestions(){
       const qs=[];
       const add=(a,op,b,type)=>qs.push({a,b,op,type,result:op==="+"?a+b:op==="−"?a-b:op==="×"?a*b:a/b});
-      let a=rand(5,9); add(a,"+",rand(Math.max(5,11-a),Math.min(9,20-a)),"20 以内加法");
-      a=rand(2,7)*10; add(a,"+",rand(11,Math.min(29,99-a)),"两位数加法");
+      let a=rand(2,7)*10; add(a,"+",rand(11,Math.min(29,99-a)),"两位数加法");
       a=rand(11,18); add(a,"−",rand(Math.max(2,a-9),Math.min(9,a-1)),"20 以内减法");
       const tensA=rand(4,9),onesA=rand(0,9),tensB=rand(1,tensA-1),onesB=rand(0,onesA); add(tensA*10+onesA,"−",tensB*10+onesB,"两位数减法 · 不借位");
-      add(rand(2,5),"×",rand(2,5),"基础乘法"); add(6,"×",rand(7,9),"进阶乘法");
+      add(6,"×",rand(7,9),"进阶乘法");
       const hardPairs=[[7,7],[7,8],[8,8],[10,11],[11,11],[11,12],[12,12],[12,13],[13,13],[13,14],[14,14],[14,15],[15,15]],hard=hardPairs[rand(0,hardPairs.length-1)]; add(hard[0],"×",hard[1],"挑战乘法");
+      const teenOne=rand(11,16),digitOne=rand(3,6); add(teenOne,"×",digitOne,"十几乘一位数");
+      let teenTwo,digitTwo; do{teenTwo=rand(12,19);digitTwo=rand(4,9)}while(teenTwo===teenOne&&digitTwo===digitOne); add(teenTwo,"×",digitTwo,"十几乘一位数");
       let divisor=rand(2,5),quotient=rand(3,6); while(divisor*quotient<12){divisor=rand(2,5);quotient=rand(3,6)} add(divisor*quotient,"÷",divisor,"小数整除");
       divisor=rand(7,9); quotient=rand(7,9); add(divisor*quotient,"÷",divisor,"大数整除");
       if(rand(1,100)<=75){
