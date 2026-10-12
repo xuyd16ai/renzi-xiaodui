@@ -42,7 +42,7 @@
         <div id="finish" class="finish hidden"></div>
       </section>
       <aside class="side">
-        <section class="friends"><h2>你的抢答搭子</h2><img id="art" src="friends-v2.png" alt="开心的马东亮、小猴和王小北"><div class="names" id="friendnames"><span>马东亮</span><span>小猴</span><span>王小北</span></div><div class="bubble" id="bubble" aria-live="polite">准备好啦！<br>看看这次谁的小脑袋转得快～</div></section>
+        <section class="friends"><h2>你的抢答搭子</h2><img id="art" src="friends-wenbao.png" alt="开心的马东亮、小猴和文宝"><div class="names" id="friendnames"><span>马东亮</span><span>小猴</span><span>文宝</span></div><div class="bubble" id="bubble" aria-live="polite">准备好啦！<br>看看这次谁的小脑袋转得快～</div></section>
         <section class="reward"><span class="rewardicon">🧧</span><div><strong>答完十题，红包雨！</strong><p>点一点红包，收集幸运星星</p></div></section>
       </aside>
     </div>
@@ -82,8 +82,8 @@
     }
     let questions=generateFreshQuestions(),index=0,correct=0,mistakes=0,solved=false,timer=null,stars=0,rainInterval=null,rainTimeout=null,rainStarted=false;
     const teams=[
-      {names:["马东亮","小猴","王小北"],art:"friends-v2.png"},
-      {names:["马东亮","小猴","文宝"],art:"friends-wenbao.png"}
+      {names:["马东亮","小猴","文宝"],art:"friends-wenbao.png"},
+      {names:["马东亮","小猴","王小北"],art:"friends-v2.png"}
     ];
     function currentTeam(){return teams[index<5?0:1]}
     function stopTimer(){clearTimeout(timer)}

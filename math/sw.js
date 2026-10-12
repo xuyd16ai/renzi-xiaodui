@@ -1,4 +1,4 @@
-const CACHE_NAME = "math-buzzer-v8";
+const CACHE_NAME = "math-buzzer-v9";
 const APP_FILES = ["./", "./index.html", "./friends-v2.png", "./friends-wenbao.png", "./manifest.webmanifest"];
 
 self.addEventListener("install", (event) => {
