@@ -446,36 +446,32 @@
 
     <script>
       const initialVocabulary = [
-        { id: "umbrella", word: "撑起雨伞，在街头", help: "在街上把雨伞撑开，举在头顶挡雨。", abstract: false },
-        { id: "harvest", word: "挡住风沙，保丰收", help: "把风和沙拦住，保护庄稼，让田里能收很多粮食。", abstract: false },
-        { id: "steady", word: "站稳脚跟", help: "脚踩得牢，不会摔倒；也可以说把事情做得很稳。", abstract: true },
-        { id: "drought", word: "耐旱", help: "很久不下雨、没有多少水，也能活下来或长得好。", abstract: true },
-        { id: "endure", word: "忍耐", help: "不舒服或不开心时先忍一忍、等一等。要是有人欺负你，要告诉可信任的大人。", abstract: true },
-        { id: "border", word: "边疆", help: "国家靠近边界的地方。", abstract: true },
-        { id: "mouth", word: "合不上嘴", help: "嘴巴张大了关不起来，常表示非常吃惊。", abstract: true },
-        { id: "whisper", word: "咬了咬耳朵", help: "把嘴靠近对方耳朵悄悄说话，不是真的咬耳朵。", abstract: true },
-        { id: "dive", word: "扎进水中", help: "一下子把身体或头钻进水里。", abstract: false },
-        { id: "petals", word: "三瓣花", help: "有三片花瓣的花。", abstract: false },
+        { id: "jungle", word: "丛林", help: "树木长得很多、很密的一大片地方。", abstract: false },
+        { id: "book-series", word: "一套丛书", help: "几本内容相关、放在一起的一组书。", abstract: false },
+        { id: "weeds", word: "杂草丛生", help: "不需要的野草长得到处都是，又多又密。", abstract: true },
+        { id: "dance", word: "翩翩起舞", help: "轻快优美地跳起舞来。", abstract: true },
+        { id: "deep-words", word: "深夜，夜深人静，深山，深红色，深入敌后", help: "深夜是很晚的夜里；夜深人静是夜很深、周围很安静；深山是远离城镇、山林很多的地方；深红色是比较浓的红色；深入敌后是走到敌人控制的地方里面。", abstract: true },
+        { id: "deep-blue", word: "湖水显示出深蓝的颜色", help: "湖水看起来是很浓、很深的蓝色。", abstract: false },
+        { id: "heavy-rain", word: "猛烈的暴雨", help: "下得又大又急、来势很强的暴雨。", abstract: false },
+        { id: "tiger", word: "猛虎下山", help: "凶猛的老虎从山上冲下来，也可以形容人行动很有气势。", abstract: true },
+        { id: "charge-run", word: "猛冲猛跑", help: "用很快的速度冲出去、跑起来。", abstract: false },
+        { id: "river-rise", word: "河水猛涨", help: "河里的水一下子涨高了很多。", abstract: false },
+        { id: "agile", word: "灵活的猴子，动作灵活，手指灵活，机灵", help: "灵活的猴子动作轻快；动作灵活是做动作快而自然；手指灵活是手指活动自如；机灵是聪明、反应快。", abstract: true },
+        { id: "quick-minded", word: "灵敏、灵机一动、心灵手巧、美好的心灵", help: "灵敏是感觉或反应快；灵机一动是忽然想到好办法；心灵手巧是聪明又会做手工；美好的心灵是善良、温暖的心意。", abstract: true },
+        { id: "rest-words", word: "休假、退休、休战", help: "休假是暂时不上班或上学、好好休息；退休是工作多年后结束职业生活；休战是暂时停止打仗。", abstract: true },
         { id: "lack", word: "缺少", help: "需要的东西不够，还少一些。", abstract: true },
-        { id: "clay", word: "捏黏土", help: "用手指把软软的黏土捏成想要的形状。", abstract: false },
-        { id: "collapse", word: "房子塌了", help: "房子的墙或屋顶倒下来、坏掉了。", abstract: false },
         { id: "judge", word: "评判", help: "根据看到的事情和道理，说它好不好、对不对；要尽量公平。", abstract: true },
-        { id: "carriage", word: "车厢", help: "火车一节一节、让人坐或装东西的部分。", abstract: false },
-        { id: "comfort", word: "安慰", help: "用话或行动让伤心、害怕的人好受一些。", abstract: true },
-        { id: "rumble", word: "轰隆隆", help: "很大、连续的声音，像雷声或火车声。", abstract: false },
-        { id: "scatter", word: "四散奔逃", help: "大家向四面八方跑开躲避。", abstract: true },
-        { id: "chase", word: "紧追不放", help: "一直紧紧追着，不停下来。", abstract: true },
-        { id: "traffic", word: "堵车", help: "路上车太多，车开得很慢，甚至动不了。", abstract: false },
-        { id: "street", word: "上街", help: "到街上去买东西、办事或玩。", abstract: false },
-        { id: "street-side", word: "街头", help: "街道上或街边的地方。", abstract: false },
-        { id: "wander", word: "东游游，西逛逛", help: "这里走走，那里看看，随意到处逛。", abstract: true },
-        { id: "puddle-longan-doll", word: "水洼，桂圆，娃娃", help: "水洼是地面上一小滩水；桂圆是一种圆圆甜甜的水果，也叫龙眼；娃娃可以指小宝宝，也可以指玩具娃娃。", abstract: false },
-        { id: "mud-pit", word: "泥坑", help: "有泥和水的坑，踩进去会弄脏，也可能滑倒。", abstract: false },
-        { id: "hook", word: "钩住了树枝", help: "带钩或弯弯的东西挂在树枝上，动不了了。", abstract: false },
-        { id: "sprout", word: "从地下拱出来", help: "从土里用力向上顶，钻出来，像小草发芽一样。", abstract: false }
+        { id: "traffic", word: "堵车", help: "路上车太多，车开得很慢，甚至动不了。", abstract: false }
       ];
 
-      const REMOVED_WORDS = new Set(["淌着水过河", "跌了一跤", "插了三支蜡烛", "使劲"]);
+      const VOCABULARY_VERSION = 2;
+      const LEGACY_DEFAULT_IDS = new Set([
+        "umbrella", "harvest", "steady", "drought", "endure", "border", "mouth", "whisper", "dive",
+        "effort", "petals", "lack", "clay", "collapse", "judge", "carriage", "comfort", "rumble",
+        "scatter", "chase", "traffic", "street", "street-side", "candles", "wander", "fell", "puddle",
+        "longan", "doll", "puddle-longan-doll", "mud-pit", "hook", "wade", "sprout"
+      ]);
+      const REMOVED_WORDS = new Set(["使劲", "插了三支蜡烛", "跌了一跤", "淌着水过河"]);
       const PLANETS = [
         { id: "mercury", name: "水星" }, { id: "venus", name: "金星" },
         { id: "earth", name: "地球" }, { id: "mars", name: "火星" },
@@ -497,35 +493,24 @@
       const clone = (value) => JSON.parse(JSON.stringify(value));
       const escapeHtml = (value) => String(value).replace(/[&<>'\"]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", "\"": "&quot;" })[char]);
 
-      function migrateVocabulary(items) {
-        let migrated = items.filter((item) => !REMOVED_WORDS.has(item.word));
-        const combined = migrated.find((item) => item.word === "水洼，桂圆，娃娃");
-        const groupWords = new Set(["水洼", "桂圆", "娃娃"]);
-        const parts = migrated.filter((item) => groupWords.has(item.word));
-        if (combined) migrated = migrated.filter((item) => !groupWords.has(item.word));
-        else if (parts.length === 3) {
-          const firstIndex = migrated.findIndex((item) => groupWords.has(item.word));
-          migrated = migrated.filter((item) => !groupWords.has(item.word));
-          migrated.splice(Math.min(firstIndex, migrated.length), 0, clone(initialVocabulary.find((item) => item.id === "puddle-longan-doll")));
-        }
-        return migrated;
+      function migrateVocabulary(saved) {
+        if (Number(saved.vocabularyVersion) >= VOCABULARY_VERSION) return saved;
+        const custom = saved.vocabulary.filter((item) => !LEGACY_DEFAULT_IDS.has(item.id) && !REMOVED_WORDS.has(item.word));
+        return { ...saved, vocabulary: [...clone(initialVocabulary), ...custom], vocabularyVersion: VOCABULARY_VERSION };
       }
 
       function loadSaved() {
         try {
           const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
           if (Array.isArray(saved?.vocabulary) && saved.vocabulary.length) {
-            const vocabulary = migrateVocabulary(saved.vocabulary);
-            if (vocabulary.length) {
-              const migrated = { ...saved, vocabulary };
-              if (JSON.stringify(migrated) !== JSON.stringify(saved)) {
-                try { localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated)); } catch (error) { /* Keep the migrated list usable for this session. */ }
-              }
-              return migrated;
+            const migrated = migrateVocabulary(saved);
+            if (JSON.stringify(migrated) !== JSON.stringify(saved)) {
+              try { localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated)); } catch (error) { /* Keep the migrated list usable for this session. */ }
             }
+            return migrated;
           }
         } catch (error) { /* Use the first-round list when local storage is unavailable. */ }
-        return { vocabulary: clone(initialVocabulary), includeMonkey: false };
+        return { vocabulary: clone(initialVocabulary), includeMonkey: false, vocabularyVersion: VOCABULARY_VERSION };
       }
 
       let saved = loadSaved();
@@ -790,7 +775,7 @@
 
       function saveLibrary() {
         includeMonkey = $("includeMonkey").checked;
-        const value = { vocabulary, includeMonkey };
+        const value = { vocabulary, includeMonkey, vocabularyVersion: VOCABULARY_VERSION };
         try { localStorage.setItem(STORAGE_KEY, JSON.stringify(value)); } catch (error) { /* The app remains usable without browser storage. */ }
         $("libraryDialog").close();
         startNewRound();
