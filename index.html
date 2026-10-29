@@ -118,6 +118,7 @@
       .eyebrow { margin: 0; color: #718992; font-size: 14px; font-weight: 750; }
       .word { margin: 16px 0 12px; color: #23434d; font-size: clamp(36px, 6.4vw, 62px); font-weight: 900; line-height: 1.18; letter-spacing: .035em; word-break: break-word; }
       .word.short { letter-spacing: .16em; }
+      .word.long { font-size: clamp(27px, 4.5vw, 42px); letter-spacing: 0; }
       .label {
         display: inline-flex;
         align-items: center;
@@ -436,7 +437,7 @@
       <form class="dialog-content" id="wordForm" method="dialog">
         <div class="dialog-top"><div><h2 id="wordDialogTitle">编辑词语</h2><p>解释会显示给孩子看；抽象词会默认展开解释。</p></div><button class="close-button" id="closeWord" type="button" aria-label="关闭编辑">×</button></div>
         <div class="form-grid">
-          <label>词语或短句<input id="wordInput" type="text" maxlength="30" required placeholder="例如：站稳脚跟" /></label>
+          <label>词语或短句<input id="wordInput" type="text" maxlength="80" required placeholder="例如：站稳脚跟" /></label>
           <label>给孩子的解释<textarea id="helpInput" maxlength="180" required placeholder="用简单、具体的句子说明这个词。"></textarea></label>
           <label class="check-row"><input id="abstractInput" type="checkbox" /><span>这是一个抽象词、成语或不容易直接看懂的说法，默认显示解释</span></label>
         </div>
@@ -447,7 +448,7 @@
     <script>
       const initialVocabulary = [
         { id: "jungle", word: "丛林", help: "树木长得很多、很密的一大片地方。", abstract: false },
-        { id: "book-series", word: "一套丛书", help: "几本内容相关、放在一起的一组书。", abstract: false },
+        { id: "book-series", word: "一套丛书；李世民一出战，就——；天气一放晴，就——；秋天来了，渐渐的——", help: "一套丛书是几本内容相关、放在一起的一组书。后三句留有横线，可以自己补充：李世民一出战，就……；天气一放晴，就……；秋天来了，渐渐的……。", abstract: true },
         { id: "weeds", word: "杂草丛生", help: "不需要的野草长得到处都是，又多又密。", abstract: true },
         { id: "dance", word: "翩翩起舞", help: "轻快优美地跳起舞来。", abstract: true },
         { id: "deep-words", word: "深夜，夜深人静，深山，深红色，深入敌后", help: "深夜是很晚的夜里；夜深人静是夜很深、周围很安静；深山是远离城镇、山林很多的地方；深红色是比较浓的红色；深入敌后是走到敌人控制的地方里面。", abstract: true },
@@ -461,15 +462,18 @@
         { id: "rest-words", word: "休假、退休、休战", help: "休假是暂时不上班或上学、好好休息；退休是工作多年后结束职业生活；休战是暂时停止打仗。", abstract: true },
         { id: "lack", word: "缺少", help: "需要的东西不够，还少一些。", abstract: true },
         { id: "judge", word: "评判", help: "根据看到的事情和道理，说它好不好、对不对；要尽量公平。", abstract: true },
-        { id: "traffic", word: "堵车", help: "路上车太多，车开得很慢，甚至动不了。", abstract: false }
+        { id: "traffic", word: "堵车", help: "路上车太多，车开得很慢，甚至动不了。", abstract: false },
+        { id: "spider-octopus", word: "蜘蛛织网屋檐下，章鱼喷墨深海里", help: "蜘蛛在屋檐下结网；章鱼能从身体里喷出墨汁，在深海中躲避危险。", abstract: false }
       ];
 
-      const VOCABULARY_VERSION = 2;
+      const VOCABULARY_VERSION = 3;
       const LEGACY_DEFAULT_IDS = new Set([
         "umbrella", "harvest", "steady", "drought", "endure", "border", "mouth", "whisper", "dive",
         "effort", "petals", "lack", "clay", "collapse", "judge", "carriage", "comfort", "rumble",
         "scatter", "chase", "traffic", "street", "street-side", "candles", "wander", "fell", "puddle",
-        "longan", "doll", "puddle-longan-doll", "mud-pit", "hook", "wade", "sprout"
+        "longan", "doll", "puddle-longan-doll", "mud-pit", "hook", "wade", "sprout",
+        "jungle", "book-series", "weeds", "dance", "deep-words", "deep-blue", "heavy-rain",
+        "tiger", "charge-run", "river-rise", "agile", "quick-minded", "rest-words"
       ]);
       const REMOVED_WORDS = new Set(["使劲", "插了三支蜡烛", "跌了一跤", "淌着水过河"]);
       const PLANETS = [
@@ -578,6 +582,7 @@
         const word = $("wordText");
         word.textContent = item.word;
         word.classList.toggle("short", item.word.length <= 4);
+        word.classList.toggle("long", item.word.length > 20);
         $("wordType").textContent = item.abstract ? "需要想一想的词" : "词语";
         $("conceptBox").innerHTML = `<strong>小猴讲一讲：</strong>${escapeHtml(item.help)}`;
         $("conceptBox").classList.toggle("hidden", !item.abstract);
