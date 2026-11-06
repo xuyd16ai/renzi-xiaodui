@@ -447,33 +447,36 @@
 
     <script>
       const initialVocabulary = [
-        { id: "jungle", word: "丛林", help: "树木长得很多、很密的一大片地方。", abstract: false },
-        { id: "book-series", word: "一套丛书；李世民一出战，就——；天气一放晴，就——；秋天来了，渐渐的——", help: "一套丛书是几本内容相关、放在一起的一组书。后三句留有横线，可以自己补充：李世民一出战，就……；天气一放晴，就……；秋天来了，渐渐的……。", abstract: true },
-        { id: "weeds", word: "杂草丛生", help: "不需要的野草长得到处都是，又多又密。", abstract: true },
-        { id: "dance", word: "翩翩起舞", help: "轻快优美地跳起舞来。", abstract: true },
-        { id: "deep-words", word: "深夜，夜深人静，深山，深红色，深入敌后", help: "深夜是很晚的夜里；夜深人静是夜很深、周围很安静；深山是远离城镇、山林很多的地方；深红色是比较浓的红色；深入敌后是走到敌人控制的地方里面。", abstract: true },
-        { id: "deep-blue", word: "湖水显示出深蓝的颜色", help: "湖水看起来是很浓、很深的蓝色。", abstract: false },
-        { id: "heavy-rain", word: "猛烈的暴雨", help: "下得又大又急、来势很强的暴雨。", abstract: false },
-        { id: "tiger", word: "猛虎下山", help: "凶猛的老虎从山上冲下来，也可以形容人行动很有气势。", abstract: true },
-        { id: "charge-run", word: "猛冲猛跑", help: "用很快的速度冲出去、跑起来。", abstract: false },
-        { id: "river-rise", word: "河水猛涨", help: "河里的水一下子涨高了很多。", abstract: false },
-        { id: "agile", word: "灵活的猴子，动作灵活，手指灵活，机灵", help: "灵活的猴子动作轻快；动作灵活是做动作快而自然；手指灵活是手指活动自如；机灵是聪明、反应快。", abstract: true },
-        { id: "quick-minded", word: "灵敏、灵机一动、心灵手巧、美好的心灵", help: "灵敏是感觉或反应快；灵机一动是忽然想到好办法；心灵手巧是聪明又会做手工；美好的心灵是善良、温暖的心意。", abstract: true },
-        { id: "rest-words", word: "休假、退休、休战", help: "休假是暂时不上班或上学、好好休息；退休是工作多年后结束职业生活；休战是暂时停止打仗。", abstract: true },
-        { id: "lack", word: "缺少", help: "需要的东西不够，还少一些。", abstract: true },
         { id: "judge", word: "评判", help: "根据看到的事情和道理，说它好不好、对不对；要尽量公平。", abstract: true },
-        { id: "traffic", word: "堵车", help: "路上车太多，车开得很慢，甚至动不了。", abstract: false },
-        { id: "spider-octopus", word: "蜘蛛织网屋檐下，章鱼喷墨深海里", help: "蜘蛛在屋檐下结网；章鱼能从身体里喷出墨汁，在深海中躲避危险。", abstract: false }
+        { id: "book-series", word: "一套丛书；李世民一出战，就——；天气一放晴，就——；秋天来了，渐渐的——", help: "一套丛书是几本内容相关、放在一起的一组书。后三句留有横线，可以自己补充：李世民一出战，就……；天气一放晴，就……；秋天来了，渐渐的……。", abstract: true },
+        { id: "dance", word: "翩翩起舞", help: "轻快优美地跳起舞来。", abstract: true },
+        { id: "mind-phrases", word: "灵机一动、心灵手巧", help: "灵机一动是突然想到一个好办法；心灵手巧是聪明又擅长动手做东西。", abstract: true },
+        { id: "rest-words", word: "休假、退休、休战", help: "休假是暂时不上班或上学、好好休息；退休是工作多年后结束职业生活；休战是暂时停止打仗。", abstract: true },
+        { id: "planting", word: "插秧", help: "把秧苗一棵棵插进水田里，让它继续长成稻子。", abstract: false },
+        { id: "seedlings", word: "鱼苗、火苗、禾苗", help: "鱼苗是小鱼；火苗是一小簇火焰；禾苗是田里刚长出来的稻、麦等庄稼苗。", abstract: true },
+        { id: "traditional-clothes", word: "传统服装真好看", help: "传统服装是一个民族或地方流传下来的衣服样式。", abstract: false },
+        { id: "canghai-cangsang", word: "沧海桑田，沧桑", help: "沧海桑田比喻时间很久、周围变化很大；沧桑可以形容经历了很多变化和磨难。造句：多年没回家乡，眼前的一切让人感到世事沧桑。", abstract: true },
+        { id: "full-of-cangsang", word: "饱经沧桑", help: "形容经历了许多艰难和变化。造句：这座老桥饱经沧桑，仍然静静地守在河边。", abstract: true },
+        { id: "luoyang-old-city", word: "古城（洛阳）经历了战火的洗礼，岁月沧桑", help: "这里的古城指洛阳。句子说洛阳经历过战争，岁月留下了许多变化。", abstract: true },
+        { id: "fertility-words", word: "肥头大耳，肥沃的土地，施肥", help: "肥头大耳常被用来嘲笑或骂人，可能伤害别人，别拿它称呼同学；肥沃的土地养分多、适合庄稼生长；施肥是给土地增加养分。", abstract: true },
+        { id: "market-produce", word: "菜市场提供了丰富的农产品", help: "菜市场里有很多不同的农产品，比如蔬菜、水果、粮食和肉类。", abstract: false },
+        { id: "obesity-health", word: "过度肥胖会影响健康", help: "体重过重可能给身体带来负担。要均衡饮食、适量运动，也不要嘲笑别人的身材。", abstract: true },
+        { id: "autumn-farmwork", word: "秋天来了，很多农活要做啊", help: "秋天有不少农事要做，比如收割庄稼、采摘果实。", abstract: false },
+        { id: "agriculture-industry", word: "农业、工业（工厂）", help: "农业包括种庄稼、养殖等生产；工业是在工厂把原料加工成产品。", abstract: true },
+        { id: "homeless-xuzhou", word: "无家可归（徐州被夺了）", help: "无家可归是没有家可以住。括号里的话提示故事情节：徐州被夺后，有人失去了家园。", abstract: true },
+        { id: "carry-sword", word: "佩戴宝剑", help: "把宝剑带在身上。", abstract: false },
+        { id: "glasses", word: "戴眼镜，摘眼镜", help: "戴眼镜是把眼镜放在眼前；摘眼镜是把眼镜从眼前取下来。", abstract: false },
+        { id: "idioms", word: "披星戴月，张冠李戴", help: "披星戴月形容很早出门、很晚才回来，路上好像顶着星星和月亮；张冠李戴是把人或事情弄错了对象。造句：整理照片时我把两个人的名字张冠李戴了。", abstract: true }
       ];
 
-      const VOCABULARY_VERSION = 3;
+      const VOCABULARY_VERSION = 4;
       const LEGACY_DEFAULT_IDS = new Set([
         "umbrella", "harvest", "steady", "drought", "endure", "border", "mouth", "whisper", "dive",
         "effort", "petals", "lack", "clay", "collapse", "judge", "carriage", "comfort", "rumble",
         "scatter", "chase", "traffic", "street", "street-side", "candles", "wander", "fell", "puddle",
         "longan", "doll", "puddle-longan-doll", "mud-pit", "hook", "wade", "sprout",
         "jungle", "book-series", "weeds", "dance", "deep-words", "deep-blue", "heavy-rain",
-        "tiger", "charge-run", "river-rise", "agile", "quick-minded", "rest-words"
+        "tiger", "charge-run", "river-rise", "agile", "quick-minded", "rest-words", "spider-octopus"
       ]);
       const REMOVED_WORDS = new Set(["使劲", "插了三支蜡烛", "跌了一跤", "淌着水过河"]);
       const PLANETS = [
