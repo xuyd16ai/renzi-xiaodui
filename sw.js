@@ -1,4 +1,4 @@
-const CACHE = "reading-squad-v7";
+const CACHE = "reading-squad-v8";
 const APP_FILES = [
   "./",
   "./index.html",

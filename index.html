@@ -262,6 +262,7 @@
       .finish-stats { display: flex; justify-content: center; gap: 34px; margin: 22px 0 25px; }
       .finish-stats b { display: block; color: #159e85; font-size: 31px; }
       .finish-stats span { color: #708891; font-size: 13px; }
+      .review-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 16px; }
       .planet-panel { width: 100%; text-align: center; }
       .planet-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
       .planet-head h2 { margin: 3px 0 0; font-size: clamp(21px, 3vw, 29px); }
@@ -338,6 +339,7 @@
         <div><strong>认字小队</strong><span>读一读，想一想，慢慢把词语认识好</span></div>
       </div>
       <div class="header-actions">
+        <button class="quiet-button" id="reviewToggle" type="button">🎲 复习抽查</button>
         <button class="quiet-button" id="pickAgain" type="button">🎲 换两位伙伴</button>
         <button class="quiet-button" id="openLibrary" type="button">⚙️ 词库管理</button>
       </div>
@@ -347,7 +349,7 @@
       <section class="welcome" aria-labelledby="pageTitle">
         <div>
           <h1 id="pageTitle">今天和小伙伴一起认字</h1>
-          <p class="subtitle">把词读清楚；遇到不好懂的词，小猴会讲给你听。</p>
+          <p class="subtitle" id="pageSubtitle">把词读清楚；遇到不好懂的词，小猴会讲给你听。</p>
         </div>
         <div class="round-chip" id="roundChip">第 1 轮 · 33 个词</div>
       </section>
@@ -375,11 +377,12 @@
             </div>
             <div class="finish-panel hidden" id="finishPanel">
               <div class="finish-icon" aria-hidden="true">🏆</div>
-              <h2>第一轮完成啦！</h2>
-              <p>你认真读完了 <span id="finishCount"></span> 个词。小伙伴们都为你鼓掌！</p>
-              <div class="finish-stats"><div><b id="finishWordCount"></b><span>认识词语</span></div><div><b id="finishPartnerCount"></b><span>本轮伙伴</span></div><div><b id="finishStarCount"></b><span>认字星星</span></div></div>
-              <p>奖励时间到啦！来接住掉下来的八大行星吧。</p>
+              <h2 id="finishTitle">总词库完成啦！</h2>
+              <p id="finishDescription">你认真读完了 <span id="finishCount"></span> 组词语。小伙伴们都为你鼓掌！</p>
+              <div class="finish-stats"><div><b id="finishWordCount"></b><span id="finishWordLabel">完成词组</span></div><div><b id="finishPartnerCount"></b><span>本轮伙伴</span></div><div><b id="finishStarCount"></b><span>认字星星</span></div></div>
+              <p id="planetRewardCopy">奖励时间到啦！来接住掉下来的八大行星吧。</p>
               <button class="primary" id="startPlanetGame" type="button">🪐 开始捡行星</button>
+              <div class="review-actions hidden" id="reviewFinishActions"><button class="listen" id="reviewAgain" type="button">🎲 再随机抽查</button><button class="primary" id="returnToNormal" type="button">回到正常学习</button></div>
             </div>
             <section class="planet-panel hidden" id="planetPanel" aria-label="八大行星收集游戏">
               <div class="planet-game" id="planetGame">
@@ -413,7 +416,7 @@
           </section>
         </aside>
       </section>
-      <p class="footer-note">词库管理中的改动会保存在当前设备的浏览器里；点“恢复第一轮”即可找回这套初始词语。</p>
+      <p class="footer-note">词库管理中的改动会保存在当前设备的浏览器里；点“恢复总词库”即可找回所有收集过的词语。</p>
     </main>
 
     <div class="sparkles hidden" id="sparkles" aria-hidden="true"></div>
@@ -427,7 +430,7 @@
         <label class="library-settings"><input id="includeMonkey" type="checkbox" /><span><strong>让小猴也参加抽取</strong><br />默认小猴是讲解员；勾选后，它也可能成为本轮伙伴。</span></label>
         <ol class="library-list" id="libraryList"></ol>
         <div class="library-foot">
-          <div><button class="line-button" id="addWord" type="button">＋ 新增词语</button><button class="line-button" id="restoreWords" type="button">↺ 恢复第一轮</button></div>
+          <div><button class="line-button" id="addWord" type="button">＋ 新增词语</button><button class="line-button" id="restoreWords" type="button">↺ 恢复总词库</button></div>
           <button class="primary" id="saveLibrary" type="button">保存并开始新一轮</button>
         </div>
       </div>
@@ -450,7 +453,7 @@
         { id: "judge", word: "评判", help: "根据看到的事情和道理，说它好不好、对不对；要尽量公平。", abstract: true },
         { id: "book-series", word: "一套丛书；李世民一出战，就——；天气一放晴，就——；秋天来了，渐渐的——", help: "一套丛书是几本内容相关、放在一起的一组书。后三句留有横线，可以自己补充：李世民一出战，就……；天气一放晴，就……；秋天来了，渐渐的……。", abstract: true },
         { id: "dance", word: "翩翩起舞", help: "轻快优美地跳起舞来。", abstract: true },
-        { id: "mind-phrases", word: "灵机一动、心灵手巧", help: "灵机一动是突然想到一个好办法；心灵手巧是聪明又擅长动手做东西。", abstract: true },
+        { id: "mind-phrases", word: "灵敏、灵机一动、心灵手巧、美好的心灵", help: "灵敏是感觉或反应快；灵机一动是忽然想到好办法；心灵手巧是聪明又会做手工；美好的心灵是善良、温暖的心意。", abstract: true },
         { id: "rest-words", word: "休假、退休、休战", help: "休假是暂时不上班或上学、好好休息；退休是工作多年后结束职业生活；休战是暂时停止打仗。", abstract: true },
         { id: "planting", word: "插秧", help: "把秧苗一棵棵插进水田里，让它继续长成稻子。", abstract: false },
         { id: "seedlings", word: "鱼苗、火苗、禾苗", help: "鱼苗是小鱼；火苗是一小簇火焰；禾苗是田里刚长出来的稻、麦等庄稼苗。", abstract: true },
@@ -466,17 +469,52 @@
         { id: "homeless-xuzhou", word: "无家可归（徐州被夺了）", help: "无家可归是没有家可以住。括号里的话提示故事情节：徐州被夺后，有人失去了家园。", abstract: true },
         { id: "carry-sword", word: "佩戴宝剑", help: "把宝剑带在身上。", abstract: false },
         { id: "glasses", word: "戴眼镜，摘眼镜", help: "戴眼镜是把眼镜放在眼前；摘眼镜是把眼镜从眼前取下来。", abstract: false },
-        { id: "idioms", word: "披星戴月，张冠李戴", help: "披星戴月形容很早出门、很晚才回来，路上好像顶着星星和月亮；张冠李戴是把人或事情弄错了对象。造句：整理照片时我把两个人的名字张冠李戴了。", abstract: true }
+        { id: "idioms", word: "披星戴月，张冠李戴", help: "披星戴月形容很早出门、很晚才回来，路上好像顶着星星和月亮；张冠李戴是把人或事情弄错了对象。造句：整理照片时我把两个人的名字张冠李戴了。", abstract: true },
+        { id: "umbrella", word: "撑起雨伞，在街头", help: "在街上把雨伞撑开，举在头顶挡雨。", abstract: false },
+        { id: "harvest", word: "挡住风沙，保丰收", help: "把风和沙拦住，保护庄稼，让田里能收很多粮食。", abstract: false },
+        { id: "steady", word: "站稳脚跟", help: "脚踩得牢，不会摔倒；也可以说把事情做得很稳。", abstract: true },
+        { id: "drought-endure", word: "耐旱、忍耐", help: "耐旱是很久不下雨、没有多少水也能活下来；忍耐是不舒服或不开心时先忍一忍、等一等。要是有人欺负你，要告诉可信任的大人。", abstract: true },
+        { id: "border", word: "边疆", help: "国家靠近边界的地方。", abstract: true },
+        { id: "mouth", word: "合不上嘴", help: "嘴巴张大了关不起来，常表示非常吃惊。", abstract: true },
+        { id: "whisper", word: "咬了咬耳朵", help: "把嘴靠近对方耳朵悄悄说话，不是真的咬耳朵。", abstract: true },
+        { id: "dive", word: "扎进水中", help: "一下子把身体或头钻进水里。", abstract: false },
+        { id: "petals", word: "三瓣花", help: "有三片花瓣的花。", abstract: false },
+        { id: "clay", word: "捏黏土", help: "用手指把软软的黏土捏成想要的形状。", abstract: false },
+        { id: "collapse", word: "房子塌了", help: "房子的墙或屋顶倒下来、坏掉了。", abstract: false },
+        { id: "carriage", word: "车厢", help: "火车一节一节、让人坐或装东西的部分。", abstract: false },
+        { id: "comfort", word: "安慰", help: "用话或行动让伤心、害怕的人好受一些。", abstract: true },
+        { id: "rumble", word: "轰隆隆", help: "很大、连续的声音，像雷声或火车声。", abstract: false },
+        { id: "scatter", word: "四散奔逃", help: "大家向四面八方跑开躲避。", abstract: true },
+        { id: "chase", word: "紧追不放", help: "一直紧紧追着，不停下来。", abstract: true },
+        { id: "street", word: "上街，街头", help: "上街是到街上去买东西、办事或玩；街头是街道上或街边的地方。", abstract: false },
+        { id: "wander", word: "东游游，西逛逛", help: "这里走走，那里看看，随意到处逛。", abstract: true },
+        { id: "puddle-longan-doll", word: "水洼、桂圆、娃娃", help: "水洼是地面凹下去的地方积着的一小滩水；桂圆是一种圆圆甜甜的水果，新鲜时也叫龙眼；娃娃可以指小宝宝，也可以指玩具娃娃。", abstract: true },
+        { id: "mud-pit", word: "泥坑", help: "有泥和水的坑，踩进去会弄脏，也可能滑倒。", abstract: false },
+        { id: "hook", word: "钩住了树枝", help: "带钩或弯弯的东西挂在树枝上，动不了了。", abstract: false },
+        { id: "sprout", word: "从地下拱出来", help: "从土里用力向上顶，钻出来，像小草发芽一样。", abstract: false },
+        { id: "jungle", word: "丛林", help: "树木长得很多、很密的一大片地方。", abstract: false },
+        { id: "weeds", word: "杂草丛生", help: "不需要的野草长得到处都是，又多又密。", abstract: true },
+        { id: "deep-words", word: "深夜、夜深人静、深山、深红色、深入敌后", help: "深夜是很晚的夜里；夜深人静是夜很深、周围很安静；深山是远离城镇、山林很多的地方；深红色是比较浓的红色；深入敌后是走到敌人控制的地方里面。", abstract: true },
+        { id: "deep-blue", word: "湖水显示出深蓝的颜色", help: "湖水看起来是很浓、很深的蓝色。", abstract: false },
+        { id: "heavy-rain", word: "猛烈的暴雨", help: "下得又大又急、来势很强的暴雨。", abstract: false },
+        { id: "tiger", word: "猛虎下山", help: "凶猛的老虎从山上冲下来，也可以形容人行动很有气势。", abstract: true },
+        { id: "charge-run", word: "猛冲猛跑", help: "用很快的速度冲出去、跑起来。", abstract: false },
+        { id: "river-rise", word: "河水猛涨", help: "河里的水一下子涨高了很多。", abstract: false },
+        { id: "agile", word: "灵活的猴子、动作灵活、手指灵活、机灵", help: "灵活的猴子动作轻快；动作灵活是做动作快而自然；手指灵活是手指活动自如；机灵是聪明、反应快。", abstract: true },
+        { id: "spider-octopus", word: "蜘蛛织网屋檐下，章鱼喷墨深海里", help: "蜘蛛在屋檐下结网；章鱼能从身体里喷出墨汁，在深海中躲避危险。", abstract: false }
       ];
 
-      const VOCABULARY_VERSION = 4;
+      const VOCABULARY_VERSION = 5;
       const LEGACY_DEFAULT_IDS = new Set([
         "umbrella", "harvest", "steady", "drought", "endure", "border", "mouth", "whisper", "dive",
         "effort", "petals", "lack", "clay", "collapse", "judge", "carriage", "comfort", "rumble",
         "scatter", "chase", "traffic", "street", "street-side", "candles", "wander", "fell", "puddle",
         "longan", "doll", "puddle-longan-doll", "mud-pit", "hook", "wade", "sprout",
         "jungle", "book-series", "weeds", "dance", "deep-words", "deep-blue", "heavy-rain",
-        "tiger", "charge-run", "river-rise", "agile", "quick-minded", "rest-words", "spider-octopus"
+        "tiger", "charge-run", "river-rise", "agile", "quick-minded", "rest-words", "spider-octopus", "mind-phrases",
+        "planting", "seedlings", "traditional-clothes", "canghai-cangsang", "full-of-cangsang", "luoyang-old-city",
+        "fertility-words", "market-produce", "obesity-health", "autumn-farmwork", "agriculture-industry",
+        "homeless-xuzhou", "carry-sword", "glasses", "idioms", "drought-endure", "puddle-longan-doll"
       ]);
       const REMOVED_WORDS = new Set(["使劲", "插了三支蜡烛", "跌了一跤", "淌着水过河"]);
       const PLANETS = [
@@ -522,6 +560,8 @@
 
       let saved = loadSaved();
       let vocabulary = saved.vocabulary;
+      let activeDeck = vocabulary;
+      let reviewMode = false;
       let includeMonkey = Boolean(saved.includeMonkey);
       let index = 0;
       let recognized = 0;
@@ -561,27 +601,33 @@
       function updateBubble() {
         const names = partners.map((person) => person.name);
         const phrase = names.length === 2 ? `${names[0]}和${names[1]}` : names[0] || "小伙伴";
-        const item = vocabulary[index];
+        const item = activeDeck[index];
         $("bubble").innerHTML = currentConfirmed
           ? `⭐ ${phrase}说：<br />“你把<strong>${escapeHtml(item?.word || "这个词")}</strong>认出来啦，真棒！”`
           : `👋 ${phrase}说：<br />“我们陪你把<strong>${escapeHtml(item?.word || "这个词")}</strong>读一读！”`;
       }
 
       function renderProgress() {
-        const count = vocabulary.length;
-        $("roundChip").textContent = `第 1 轮 · ${count} 个词`;
-        $("progressText").textContent = index >= count ? `第 ${count} / ${count} 个词` : `第 ${index + 1} / ${count} 个词`;
-        $("recognizedText").textContent = `已认识 ${recognized} 个`;
+        const count = activeDeck.length;
+        $("roundChip").textContent = reviewMode ? `随机复习 · ${count} 组` : `总词库 · ${count} 组`;
+        $("pageTitle").textContent = reviewMode ? "来做一次随机抽查" : "今天和小伙伴一起认字";
+        $("pageSubtitle").textContent = reviewMode
+          ? "词语会随机出现，每组只抽查一次；点顶部按钮可随时回到正常学习。"
+          : "把词读清楚；遇到不好懂的词，小猴会讲给你听。";
+        $("progressText").textContent = reviewMode
+          ? (index >= count ? `抽查 ${count} / ${count} 组` : `抽查 ${index + 1} / ${count} 组`)
+          : (index >= count ? `第 ${count} / ${count} 组` : `第 ${index + 1} / ${count} 组`);
+        $("recognizedText").textContent = reviewMode ? `已抽查 ${recognized} 组` : `已认识 ${recognized} 组`;
         $("rewardText").textContent = `已经收集 ${recognized} 颗认字星星`;
-        $("progressDots").innerHTML = vocabulary.map((_, itemIndex) => `<span class="${itemIndex < index ? "done" : itemIndex === index ? "current" : ""}"></span>`).join("");
+        $("progressDots").innerHTML = activeDeck.map((_, itemIndex) => `<span class="${itemIndex < index ? "done" : itemIndex === index ? "current" : ""}"></span>`).join("");
       }
 
       function renderCurrent() {
         renderProgress();
-        if (index >= vocabulary.length) return renderFinished();
+        if (index >= activeDeck.length) return renderFinished();
         $("learningPanel").classList.remove("hidden");
         $("finishPanel").classList.add("hidden");
-        const item = vocabulary[index];
+        const item = activeDeck[index];
         const word = $("wordText");
         word.textContent = item.word;
         word.classList.toggle("short", item.word.length <= 4);
@@ -600,8 +646,15 @@
       function renderFinished() {
         $("learningPanel").classList.add("hidden");
         $("finishPanel").classList.remove("hidden");
-        $("finishCount").textContent = vocabulary.length;
-        $("finishWordCount").textContent = vocabulary.length;
+        $("finishWordCount").textContent = activeDeck.length;
+        $("finishTitle").textContent = reviewMode ? "随机抽查完成啦！" : "总词库完成啦！";
+        $("finishDescription").innerHTML = reviewMode
+          ? `你完成了 <span id="finishCount">${activeDeck.length}</span> 组随机抽查。每组只出现了一次，真棒！`
+          : `你认真读完了 <span id="finishCount">${activeDeck.length}</span> 组词语。小伙伴们都为你鼓掌！`;
+        $("finishWordLabel").textContent = reviewMode ? "抽查词组" : "完成词组";
+        $("planetRewardCopy").classList.toggle("hidden", reviewMode);
+        $("startPlanetGame").classList.toggle("hidden", reviewMode);
+        $("reviewFinishActions").classList.toggle("hidden", !reviewMode);
         $("finishPartnerCount").textContent = partners.length;
         $("finishStarCount").textContent = recognized;
         $("successNote").textContent = "";
@@ -610,7 +663,7 @@
       }
 
       function confirmWord() {
-        if (currentConfirmed || index >= vocabulary.length) return;
+        if (currentConfirmed || index >= activeDeck.length) return;
         currentConfirmed = true;
         recognized += 1;
         renderCurrent();
@@ -629,11 +682,32 @@
         index = 0;
         recognized = 0;
         currentConfirmed = false;
+        reviewMode = false;
+        activeDeck = vocabulary;
+        $("reviewToggle").textContent = "🎲 复习抽查";
         $("planetPanel").classList.add("hidden");
         $("finishPanel").classList.add("hidden");
         $("learningPanel").classList.remove("hidden");
         choosePartners();
         renderCurrent();
+      }
+
+      function startReview() {
+        if (planetAdvanceTimer) window.clearTimeout(planetAdvanceTimer);
+        planetAdvanceTimer = null;
+        reviewMode = true;
+        activeDeck = shuffle(vocabulary);
+        index = 0;
+        recognized = 0;
+        currentConfirmed = false;
+        $("planetPanel").classList.add("hidden");
+        $("reviewToggle").textContent = "↩ 回到正常学习";
+        choosePartners();
+        renderCurrent();
+      }
+
+      function returnToNormal() {
+        startNewRound();
       }
 
       function startPlanetGame() {
@@ -710,7 +784,7 @@
       }
 
       function speakCurrent() {
-        const item = vocabulary[index];
+        const item = activeDeck[index];
         if (!item || !("speechSynthesis" in window)) return;
         window.speechSynthesis.cancel();
         const speech = new SpeechSynthesisUtterance(item.word);
@@ -797,10 +871,13 @@
       $("showHelp").addEventListener("click", showHelp);
       $("speakWord").addEventListener("click", speakCurrent);
       $("pickAgain").addEventListener("click", choosePartners);
+      $("reviewToggle").addEventListener("click", () => reviewMode ? returnToNormal() : startReview());
+      $("reviewAgain").addEventListener("click", startReview);
+      $("returnToNormal").addEventListener("click", returnToNormal);
       $("openLibrary").addEventListener("click", openLibrary);
       $("closeLibrary").addEventListener("click", () => $("libraryDialog").close());
       $("addWord").addEventListener("click", () => openWordEditor());
-      $("restoreWords").addEventListener("click", () => { if (window.confirm("恢复后，当前词库里的自定义改动会被替换。继续吗？")) { vocabulary = clone(initialVocabulary); includeMonkey = false; renderLibrary(); } });
+      $("restoreWords").addEventListener("click", () => { if (window.confirm("恢复后，当前词库里的自定义改动会被替换为这套总词库。继续吗？")) { vocabulary = clone(initialVocabulary); includeMonkey = false; renderLibrary(); } });
       $("saveLibrary").addEventListener("click", saveLibrary);
       $("libraryList").addEventListener("click", (event) => {
         const button = event.target.closest("button[data-action]");
