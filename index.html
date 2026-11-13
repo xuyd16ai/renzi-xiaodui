@@ -416,7 +416,7 @@
           </section>
         </aside>
       </section>
-      <p class="footer-note">词库管理中的改动会保存在当前设备的浏览器里；点“恢复总词库”即可找回所有收集过的词语。</p>
+      <p class="footer-note">正常学习显示最近一轮词语；复习抽查会随机抽取历次累计的词语。词库改动保存在当前设备中。</p>
     </main>
 
     <div class="sparkles hidden" id="sparkles" aria-hidden="true"></div>
@@ -424,13 +424,13 @@
     <dialog id="libraryDialog" aria-labelledby="libraryTitle">
       <div class="dialog-content">
         <div class="dialog-top">
-          <div><h2 id="libraryTitle">词库管理</h2><p>在这里替换、增加或删除词语。每个词都可以写一段给小朋友听得懂的解释。</p></div>
+          <div><h2 id="libraryTitle">词库管理</h2><p>这里管理正常学习词语；新增词语也会加入复习总词库。每个词都可以写一段给小朋友听得懂的解释。</p></div>
           <button class="close-button" id="closeLibrary" type="button" aria-label="关闭词库管理">×</button>
         </div>
         <label class="library-settings"><input id="includeMonkey" type="checkbox" /><span><strong>让小猴也参加抽取</strong><br />默认小猴是讲解员；勾选后，它也可能成为本轮伙伴。</span></label>
         <ol class="library-list" id="libraryList"></ol>
         <div class="library-foot">
-          <div><button class="line-button" id="addWord" type="button">＋ 新增词语</button><button class="line-button" id="restoreWords" type="button">↺ 恢复总词库</button></div>
+          <div><button class="line-button" id="addWord" type="button">＋ 新增词语</button><button class="line-button" id="restoreWords" type="button">↺ 恢复正常词库</button></div>
           <button class="primary" id="saveLibrary" type="button">保存并开始新一轮</button>
         </div>
       </div>
@@ -449,11 +449,11 @@
     </dialog>
 
     <script>
-      const initialVocabulary = [
+      const totalVocabulary = [
         { id: "judge", word: "评判", help: "根据看到的事情和道理，说它好不好、对不对；要尽量公平。", abstract: true },
         { id: "book-series", word: "一套丛书；李世民一出战，就——；天气一放晴，就——；秋天来了，渐渐的——", help: "一套丛书是几本内容相关、放在一起的一组书。后三句留有横线，可以自己补充：李世民一出战，就……；天气一放晴，就……；秋天来了，渐渐的……。", abstract: true },
         { id: "dance", word: "翩翩起舞", help: "轻快优美地跳起舞来。", abstract: true },
-        { id: "mind-phrases", word: "灵敏、灵机一动、心灵手巧、美好的心灵", help: "灵敏是感觉或反应快；灵机一动是忽然想到好办法；心灵手巧是聪明又会做手工；美好的心灵是善良、温暖的心意。", abstract: true },
+        { id: "mind-phrases", word: "灵机一动、心灵手巧", help: "灵机一动是突然想到一个好办法；心灵手巧是聪明又擅长动手做东西。", abstract: true },
         { id: "rest-words", word: "休假、退休、休战", help: "休假是暂时不上班或上学、好好休息；退休是工作多年后结束职业生活；休战是暂时停止打仗。", abstract: true },
         { id: "planting", word: "插秧", help: "把秧苗一棵棵插进水田里，让它继续长成稻子。", abstract: false },
         { id: "seedlings", word: "鱼苗、火苗、禾苗", help: "鱼苗是小鱼；火苗是一小簇火焰；禾苗是田里刚长出来的稻、麦等庄稼苗。", abstract: true },
@@ -500,11 +500,14 @@
         { id: "tiger", word: "猛虎下山", help: "凶猛的老虎从山上冲下来，也可以形容人行动很有气势。", abstract: true },
         { id: "charge-run", word: "猛冲猛跑", help: "用很快的速度冲出去、跑起来。", abstract: false },
         { id: "river-rise", word: "河水猛涨", help: "河里的水一下子涨高了很多。", abstract: false },
+        { id: "quick-minded", word: "灵敏、灵机一动、心灵手巧、美好的心灵", help: "灵敏是感觉或反应快；灵机一动是忽然想到好办法；心灵手巧是聪明又会做手工；美好的心灵是善良、温暖的心意。", abstract: true },
         { id: "agile", word: "灵活的猴子、动作灵活、手指灵活、机灵", help: "灵活的猴子动作轻快；动作灵活是做动作快而自然；手指灵活是手指活动自如；机灵是聪明、反应快。", abstract: true },
-        { id: "spider-octopus", word: "蜘蛛织网屋檐下，章鱼喷墨深海里", help: "蜘蛛在屋檐下结网；章鱼能从身体里喷出墨汁，在深海中躲避危险。", abstract: false }
+        { id: "spider-octopus", word: "蜘蛛织网屋檐下，章鱼喷墨深海里", help: "蜘蛛在屋檐下结网；章鱼能从身体里喷出墨汁，在深海中躲避危险。", abstract: false },
+        { id: "traffic", word: "堵车", help: "路上车太多，车开得很慢，甚至动不了。", abstract: false }
       ];
 
-      const VOCABULARY_VERSION = 5;
+      const initialVocabulary = totalVocabulary.slice(0, 20);
+      const VOCABULARY_VERSION = 6;
       const LEGACY_DEFAULT_IDS = new Set([
         "umbrella", "harvest", "steady", "drought", "endure", "border", "mouth", "whisper", "dive",
         "effort", "petals", "lack", "clay", "collapse", "judge", "carriage", "comfort", "rumble",
@@ -539,9 +542,23 @@
       const escapeHtml = (value) => String(value).replace(/[&<>'\"]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", "\"": "&quot;" })[char]);
 
       function migrateVocabulary(saved) {
-        if (Number(saved.vocabularyVersion) >= VOCABULARY_VERSION) return saved;
+        const savedVersion = Number(saved.vocabularyVersion);
+        if (savedVersion >= VOCABULARY_VERSION) {
+          const current = Array.isArray(saved.vocabulary) && saved.vocabulary.length
+            ? saved.vocabulary
+            : clone(initialVocabulary);
+          const review = Array.isArray(saved.reviewVocabulary) && saved.reviewVocabulary.length
+            ? saved.reviewVocabulary
+            : [...clone(totalVocabulary), ...current.filter((item) => !LEGACY_DEFAULT_IDS.has(item.id))];
+          return { ...saved, vocabulary: current, reviewVocabulary: review };
+        }
         const custom = saved.vocabulary.filter((item) => !LEGACY_DEFAULT_IDS.has(item.id) && !REMOVED_WORDS.has(item.word));
-        return { ...saved, vocabulary: [...clone(initialVocabulary), ...custom], vocabularyVersion: VOCABULARY_VERSION };
+        return {
+          ...saved,
+          vocabulary: [...clone(initialVocabulary), ...custom],
+          reviewVocabulary: [...clone(totalVocabulary), ...custom],
+          vocabularyVersion: VOCABULARY_VERSION
+        };
       }
 
       function loadSaved() {
@@ -555,11 +572,17 @@
             return migrated;
           }
         } catch (error) { /* Use the first-round list when local storage is unavailable. */ }
-        return { vocabulary: clone(initialVocabulary), includeMonkey: false, vocabularyVersion: VOCABULARY_VERSION };
+        return {
+          vocabulary: clone(initialVocabulary),
+          reviewVocabulary: clone(totalVocabulary),
+          includeMonkey: false,
+          vocabularyVersion: VOCABULARY_VERSION
+        };
       }
 
       let saved = loadSaved();
       let vocabulary = saved.vocabulary;
+      let reviewVocabulary = saved.reviewVocabulary;
       let activeDeck = vocabulary;
       let reviewMode = false;
       let includeMonkey = Boolean(saved.includeMonkey);
@@ -609,10 +632,10 @@
 
       function renderProgress() {
         const count = activeDeck.length;
-        $("roundChip").textContent = reviewMode ? `随机复习 · ${count} 组` : `总词库 · ${count} 组`;
+        $("roundChip").textContent = reviewMode ? `全词复习 · ${count} 组` : `正常学习 · ${count} 组`;
         $("pageTitle").textContent = reviewMode ? "来做一次随机抽查" : "今天和小伙伴一起认字";
         $("pageSubtitle").textContent = reviewMode
-          ? "词语会随机出现，每组只抽查一次；点顶部按钮可随时回到正常学习。"
+          ? "这里保留历次词语，随机抽查且每组只出现一次；点顶部按钮可回到正常学习。"
           : "把词读清楚；遇到不好懂的词，小猴会讲给你听。";
         $("progressText").textContent = reviewMode
           ? (index >= count ? `抽查 ${count} / ${count} 组` : `抽查 ${index + 1} / ${count} 组`)
@@ -647,7 +670,7 @@
         $("learningPanel").classList.add("hidden");
         $("finishPanel").classList.remove("hidden");
         $("finishWordCount").textContent = activeDeck.length;
-        $("finishTitle").textContent = reviewMode ? "随机抽查完成啦！" : "总词库完成啦！";
+        $("finishTitle").textContent = reviewMode ? "随机抽查完成啦！" : "本轮完成啦！";
         $("finishDescription").innerHTML = reviewMode
           ? `你完成了 <span id="finishCount">${activeDeck.length}</span> 组随机抽查。每组只出现了一次，真棒！`
           : `你认真读完了 <span id="finishCount">${activeDeck.length}</span> 组词语。小伙伴们都为你鼓掌！`;
@@ -696,7 +719,7 @@
         if (planetAdvanceTimer) window.clearTimeout(planetAdvanceTimer);
         planetAdvanceTimer = null;
         reviewMode = true;
-        activeDeck = shuffle(vocabulary);
+        activeDeck = shuffle(reviewVocabulary);
         index = 0;
         recognized = 0;
         currentConfirmed = false;
@@ -844,6 +867,9 @@
         const item = { id: editingIndex === null ? `custom-${Date.now()}` : vocabulary[editingIndex].id, word, help, abstract: $("abstractInput").checked };
         if (editingIndex === null) vocabulary.push(item);
         else vocabulary[editingIndex] = item;
+        const reviewIndex = reviewVocabulary.findIndex((entry) => entry.id === item.id);
+        if (reviewIndex === -1) reviewVocabulary.push(clone(item));
+        else reviewVocabulary[reviewIndex] = clone(item);
         $("wordDialog").close();
         renderLibrary();
       }
@@ -857,7 +883,7 @@
 
       function saveLibrary() {
         includeMonkey = $("includeMonkey").checked;
-        const value = { vocabulary, includeMonkey, vocabularyVersion: VOCABULARY_VERSION };
+        const value = { vocabulary, reviewVocabulary, includeMonkey, vocabularyVersion: VOCABULARY_VERSION };
         try { localStorage.setItem(STORAGE_KEY, JSON.stringify(value)); } catch (error) { /* The app remains usable without browser storage. */ }
         $("libraryDialog").close();
         startNewRound();
@@ -877,7 +903,7 @@
       $("openLibrary").addEventListener("click", openLibrary);
       $("closeLibrary").addEventListener("click", () => $("libraryDialog").close());
       $("addWord").addEventListener("click", () => openWordEditor());
-      $("restoreWords").addEventListener("click", () => { if (window.confirm("恢复后，当前词库里的自定义改动会被替换为这套总词库。继续吗？")) { vocabulary = clone(initialVocabulary); includeMonkey = false; renderLibrary(); } });
+      $("restoreWords").addEventListener("click", () => { if (window.confirm("恢复后，正常学习词库里的自定义改动会被替换为最近一轮词语；复习词库会继续保留所有历史词语。继续吗？")) { vocabulary = clone(initialVocabulary); includeMonkey = false; renderLibrary(); } });
       $("saveLibrary").addEventListener("click", saveLibrary);
       $("libraryList").addEventListener("click", (event) => {
         const button = event.target.closest("button[data-action]");
