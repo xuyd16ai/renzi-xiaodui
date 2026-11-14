@@ -416,7 +416,7 @@
           </section>
         </aside>
       </section>
-      <p class="footer-note">正常学习显示最近一轮词语；复习抽查会随机抽取历次累计的词语。词库改动保存在当前设备中。</p>
+      <p class="footer-note">正常学习显示最新一轮词语；复习抽查会随机抽取历次累计的词语。词库改动保存在当前设备中。</p>
     </main>
 
     <div class="sparkles hidden" id="sparkles" aria-hidden="true"></div>
@@ -450,6 +450,20 @@
 
     <script>
       const totalVocabulary = [
+        { id: "taishici-brave-but", word: "虽然太史慈很勇猛，但是……", help: "勇猛是又勇敢又有力量。“虽然……但是……”先说一件事，再说和它不同或相反的情况；句子后半可以自己接着说。", abstract: true },
+        { id: "hardworking-farmers", word: "辛勤的工作；农民辛勤劳动，过上了幸福的生活", help: "辛勤是认真努力、不怕辛苦。句子说农民努力劳动，后来过上了幸福的生活。", abstract: true },
+        { id: "liubei-sour", word: "刘备觉得很辛酸", help: "辛酸是心里难过、酸楚，常常因为经历了不容易的事情。", abstract: true },
+        { id: "bitter-words", word: "艰苦、千辛万苦、良药苦口", help: "艰苦是生活或做事很不容易；千辛万苦是经历了很多困难；良药苦口是有些药吃起来很苦，却对治病有帮助。", abstract: true },
+        { id: "thanks-hardwork", word: "有人帮了你，你就说：谢谢，辛苦啦", help: "“谢谢”是感谢别人；“辛苦啦”是体谅对方花了力气、做了不少事。", abstract: true },
+        { id: "liubei-worried", word: "刘备很苦恼：丢了徐州怎么办？愁眉苦脸", help: "苦恼是心里烦恼、发愁；愁眉苦脸是皱着眉头、脸上显出难过或担心的样子。", abstract: true },
+        { id: "yuan-zhang-sweet", word: "朱元璋苦尽甘来：吃苦的日子过去了，剩下的日子很甘甜", help: "苦尽甘来是艰难的日子过去后，迎来了比较幸福、甜美的生活。", abstract: true },
+        { id: "shared-hardship", word: "一群人同甘共苦，一起经历辛苦：刘关张", help: "同甘共苦是大家一起分享快乐，也一起承担困难。刘关张指刘备、关羽、张飞。", abstract: true },
+        { id: "endure-hardship", word: "吃苦耐劳", help: "能承受辛苦和劳累，做事努力、不怕困难。", abstract: true },
+        { id: "caocao-wry-smile", word: "曹操苦笑道", help: "苦笑是心里无奈或难过时勉强笑一笑；“道”在这里是“说”的意思。", abstract: true },
+        { id: "caobao-reluctantly", word: "曹豹勉为其难地喝酒", help: "勉为其难是自己不太愿意或觉得困难，还是勉强去做。", abstract: true },
+        { id: "thoroughly-understand", word: "了然于胸，了解", help: "了解是知道、明白；了然于胸是心里非常清楚，已经弄明白了。", abstract: true },
+        { id: "delicious-smells", word: "美滋滋，香喷喷", help: "美滋滋是心里高兴、满意的样子；香喷喷是香味很浓、闻起来很香。", abstract: true },
+        { id: "bright-colors", word: "红彤彤、绿油油、白花花", help: "红彤彤是鲜亮的红色；绿油油是鲜嫩、浓绿的样子；白花花是明亮的白色。", abstract: false },
         { id: "judge", word: "评判", help: "根据看到的事情和道理，说它好不好、对不对；要尽量公平。", abstract: true },
         { id: "book-series", word: "一套丛书；李世民一出战，就——；天气一放晴，就——；秋天来了，渐渐的——", help: "一套丛书是几本内容相关、放在一起的一组书。后三句留有横线，可以自己补充：李世民一出战，就……；天气一放晴，就……；秋天来了，渐渐的……。", abstract: true },
         { id: "dance", word: "翩翩起舞", help: "轻快优美地跳起舞来。", abstract: true },
@@ -506,8 +520,8 @@
         { id: "traffic", word: "堵车", help: "路上车太多，车开得很慢，甚至动不了。", abstract: false }
       ];
 
-      const initialVocabulary = totalVocabulary.slice(0, 20);
-      const VOCABULARY_VERSION = 6;
+      const initialVocabulary = totalVocabulary.slice(0, 14);
+      const VOCABULARY_VERSION = 7;
       const LEGACY_DEFAULT_IDS = new Set([
         "umbrella", "harvest", "steady", "drought", "endure", "border", "mouth", "whisper", "dive",
         "effort", "petals", "lack", "clay", "collapse", "judge", "carriage", "comfort", "rumble",
@@ -517,7 +531,10 @@
         "tiger", "charge-run", "river-rise", "agile", "quick-minded", "rest-words", "spider-octopus", "mind-phrases",
         "planting", "seedlings", "traditional-clothes", "canghai-cangsang", "full-of-cangsang", "luoyang-old-city",
         "fertility-words", "market-produce", "obesity-health", "autumn-farmwork", "agriculture-industry",
-        "homeless-xuzhou", "carry-sword", "glasses", "idioms", "drought-endure", "puddle-longan-doll"
+        "homeless-xuzhou", "carry-sword", "glasses", "idioms", "drought-endure", "puddle-longan-doll",
+        "taishici-brave-but", "hardworking-farmers", "liubei-sour", "bitter-words", "thanks-hardwork",
+        "liubei-worried", "yuan-zhang-sweet", "shared-hardship", "endure-hardship", "caocao-wry-smile",
+        "caobao-reluctantly", "thoroughly-understand", "delicious-smells", "bright-colors"
       ]);
       const REMOVED_WORDS = new Set(["使劲", "插了三支蜡烛", "跌了一跤", "淌着水过河"]);
       const PLANETS = [
@@ -552,7 +569,11 @@
             : [...clone(totalVocabulary), ...current.filter((item) => !LEGACY_DEFAULT_IDS.has(item.id))];
           return { ...saved, vocabulary: current, reviewVocabulary: review };
         }
-        const custom = saved.vocabulary.filter((item) => !LEGACY_DEFAULT_IDS.has(item.id) && !REMOVED_WORDS.has(item.word));
+        const customById = new Map();
+        [...(saved.vocabulary || []), ...(saved.reviewVocabulary || [])].forEach((item) => {
+          if (!LEGACY_DEFAULT_IDS.has(item.id) && !REMOVED_WORDS.has(item.word)) customById.set(item.id, item);
+        });
+        const custom = [...customById.values()];
         return {
           ...saved,
           vocabulary: [...clone(initialVocabulary), ...custom],
