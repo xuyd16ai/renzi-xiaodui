@@ -450,6 +450,37 @@
 
     <script>
       const totalVocabulary = [
+        { id: "rain-chang-tone", word: "一场雨（二声）", help: "这里“场”读二声 cháng，是表示事情发生一次的量词，比如一场雨、一场雪。", abstract: false },
+        { id: "match-chang-tone", word: "一场比赛（三声）", help: "这里“场”读三声 chǎng，表示比赛进行的场地或一场比赛。和“一场雨”的读音不同。", abstract: false },
+        { id: "grape-counting", word: "一串葡萄，一串项链，一颗葡萄", help: "“串”可以数连在一起的葡萄或珠子；“颗”可以数一粒粒圆圆的葡萄。", abstract: false },
+        { id: "grapevine", word: "葡萄藤爬上了葡萄架", help: "葡萄藤是结葡萄的藤；它顺着架子向上生长。", abstract: false },
+        { id: "colorful-flowers", word: "万紫千红", help: "形容花的颜色很多、非常鲜艳，也常用来描写春天花开得热闹。", abstract: true },
+        { id: "clumsy-early-bird", word: "笨手笨脚的弹不好钢琴，笨鸟先飞", help: "笨手笨脚是动作不够灵巧；笨鸟先飞是觉得自己不够熟练，就提早开始、多练习。", abstract: true },
+        { id: "clumsy-bear", word: "笨重的狗熊", help: "笨重在这里是身体很大、动作不灵便，不是说狗熊不聪明。", abstract: false },
+        { id: "blueberry-idiom", word: "酸甜可口的蓝莓，望梅止渴", help: "酸甜可口是又酸又甜、味道很好；望梅止渴是想到或听说喜欢的东西来安慰自己，但光想一想并不能真的解渴。", abstract: true },
+        { id: "not-reconciled", word: "不甘心：想要又拿不到，觉得不应该这样", help: "不甘心是很想得到或做好一件事，没能如愿时觉得不服气、难以接受。", abstract: true },
+        { id: "sour-grapes", word: "吃不到葡萄说葡萄酸", help: "比喻自己得不到某样东西，就说那东西不好，像是安慰自己。故事里狐狸够不到葡萄，就说葡萄是酸的。", abstract: true },
+        { id: "defeated-honorable", word: "虽败犹荣（项羽）", help: "虽败犹荣是虽然没有获胜，但表现勇敢、努力，仍然值得尊敬。这里用项羽作例子。", abstract: true },
+        { id: "joy-in-hardship", word: "苦中作乐", help: "在辛苦或不容易的日子里，也努力找到一点快乐和有趣的事。", abstract: true },
+        { id: "do-not-impose", word: "己所不欲，勿施于人", help: "自己不喜欢的事，也不要强加给别人。比如：你不希望别人抢你的玩具，你也不要抢别人的玩具。", abstract: true },
+        { id: "keep-promises", word: "与朋友交，言而有信", help: "和朋友交往要讲信用；答应别人的事，要尽力做到。", abstract: true },
+        { id: "rules-square-circle", word: "不以规矩，不能成方圆", help: "没有规矩和规则，事情就难以做好。比如军队要遵守军令；读到李白、李世民的故事时，也可以看看他们怎样按规则行事。", abstract: true },
+        { id: "familiar-face", word: "熟悉的面孔", help: "以前见过、认得出来的脸。", abstract: false },
+        { id: "sparrow-organs", word: "麻雀虽小，五脏俱全", help: "麻雀虽然很小，身体里的各种器官却一样不少。也可以形容东西虽小，功能却很齐全。", abstract: true },
+        { id: "cheer-jump", word: "欢呼雀跃", help: "高兴得又欢呼、又跳起来，形容非常开心。", abstract: true },
+        { id: "silent-like-birds", word: "鸦雀无声", help: "周围非常安静，连鸟叫声都听不见。", abstract: true },
+        { id: "clever-plan", word: "锦囊妙计", help: "事先想好的、很巧妙的好办法。", abstract: true },
+        { id: "icing-on-cake", word: "锦上添花", help: "已经很好的事情，再加上好处，让它变得更好。", abstract: true },
+        { id: "grand-scenery", word: "雄伟壮观", help: "景象高大、宏伟，看起来很壮丽。", abstract: true },
+        { id: "ambition", word: "雄心壮志", help: "心里有远大的目标，也有努力去实现目标的志向。", abstract: true },
+        { id: "owl-mice", word: "猫头鹰是捕捉老鼠的能手", help: "猫头鹰视力好、飞行安静，常在夜间捕捉老鼠。能手就是很擅长做某件事的人或动物。", abstract: false },
+        { id: "eagle-wings", word: "雄鹰展翅飞翔", help: "雄鹰张开翅膀飞向天空；也可以用来形容人勇敢地出发、努力向前。", abstract: true },
+        { id: "geese-soar", word: "大雁自由地翱翔天际", help: "大雁在天空中自由地飞翔。翱翔是张开翅膀在空中自在地飞。", abstract: false },
+        { id: "team-leader", word: "一支队伍，队长", help: "一支队伍是一群一起行动的人；队长是带领队伍、安排大家的人。", abstract: false },
+        { id: "friendship-good-friend", word: "友情，良师益友", help: "友情是朋友之间的情谊；良师益友是既能教我们知识、又能和我们友好相处的老师或朋友。", abstract: true },
+        { id: "colorful-sounds-one", word: "绿油油、喜洋洋、红彤彤、酸溜溜、火辣辣", help: "绿油油形容很绿；喜洋洋形容很高兴；红彤彤形容鲜亮的红色；酸溜溜形容酸味或心里有点嫉妒；火辣辣形容很热或辣味很强。", abstract: true },
+        { id: "colorful-sounds-two", word: "光溜溜、圆滚滚、热腾腾、冷冰冰、轻飘飘", help: "光溜溜是光滑或没有遮盖；圆滚滚是又圆又鼓；热腾腾是热气很足；冷冰冰是很冷或态度冷淡；轻飘飘是很轻、像要飘起来。", abstract: true },
+        { id: "colorful-sounds-three", word: "孤零零、乱哄哄、一点点、亮晶晶、乐呵呵", help: "孤零零是独自一个；乱哄哄是又吵又乱；一点点是数量很少；亮晶晶是闪闪发亮；乐呵呵是笑眯眯、很高兴。", abstract: true },
         { id: "taishici-brave-but", word: "虽然太史慈很勇猛，但是……", help: "勇猛是又勇敢又有力量。“虽然……但是……”先说一件事，再说和它不同或相反的情况；句子后半可以自己接着说。", abstract: true },
         { id: "hardworking-farmers", word: "辛勤的工作；农民辛勤劳动，过上了幸福的生活", help: "辛勤是认真努力、不怕辛苦。句子说农民努力劳动，后来过上了幸福的生活。", abstract: true },
         { id: "liubei-sour", word: "刘备觉得很辛酸", help: "辛酸是心里难过、酸楚，常常因为经历了不容易的事情。", abstract: true },
@@ -520,8 +551,8 @@
         { id: "traffic", word: "堵车", help: "路上车太多，车开得很慢，甚至动不了。", abstract: false }
       ];
 
-      const initialVocabulary = totalVocabulary.slice(0, 14);
-      const VOCABULARY_VERSION = 7;
+      const initialVocabulary = totalVocabulary.slice(0, 31);
+      const VOCABULARY_VERSION = 8;
       const LEGACY_DEFAULT_IDS = new Set([
         "umbrella", "harvest", "steady", "drought", "endure", "border", "mouth", "whisper", "dive",
         "effort", "petals", "lack", "clay", "collapse", "judge", "carriage", "comfort", "rumble",
@@ -534,7 +565,13 @@
         "homeless-xuzhou", "carry-sword", "glasses", "idioms", "drought-endure", "puddle-longan-doll",
         "taishici-brave-but", "hardworking-farmers", "liubei-sour", "bitter-words", "thanks-hardwork",
         "liubei-worried", "yuan-zhang-sweet", "shared-hardship", "endure-hardship", "caocao-wry-smile",
-        "caobao-reluctantly", "thoroughly-understand", "delicious-smells", "bright-colors"
+        "caobao-reluctantly", "thoroughly-understand", "delicious-smells", "bright-colors",
+        "rain-chang-tone", "match-chang-tone", "grape-counting", "grapevine", "colorful-flowers",
+        "clumsy-early-bird", "clumsy-bear", "blueberry-idiom", "not-reconciled", "sour-grapes",
+        "defeated-honorable", "joy-in-hardship", "do-not-impose", "keep-promises", "rules-square-circle",
+        "familiar-face", "sparrow-organs", "cheer-jump", "silent-like-birds", "clever-plan", "icing-on-cake",
+        "grand-scenery", "ambition", "owl-mice", "eagle-wings", "geese-soar", "team-leader",
+        "friendship-good-friend", "colorful-sounds-one", "colorful-sounds-two", "colorful-sounds-three"
       ]);
       const REMOVED_WORDS = new Set(["使劲", "插了三支蜡烛", "跌了一跤", "淌着水过河"]);
       const PLANETS = [
